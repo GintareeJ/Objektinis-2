@@ -112,7 +112,24 @@ srand(time(nullptr)); //kad kiekviena karta butu generuojami skirtingi pazymiai
     cin.tie(nullptr); //del greitesnio duomenu spausdinimo
 
     int pasirinkimas;
-    cin>>pasirinkimas;
+    while(true)
+    {
+        try {
+            cin>>pasirinkimas;
+        if (cin.fail())
+            throw std::invalid_argument("Ivestas ne skaicius\n");
+
+        if (pasirinkimas != 1 && pasirinkimas!= 2&& pasirinkimas!=3)
+            throw std::out_of_range("Galimi tik 1, 2 arba 3\n");
+
+        break;
+    }
+    catch (const std::exception& e) {
+        cout << "Klaida: " << e.what() << "bandykite dar karta:\n"<<std::endl;
+        cin.clear();
+        cin.ignore(10000, '\n'); //pasirenkamas didelis skaicius, kad tikrai butu isvalyta ivedimo reiksme
+    }
+    }
     if (pasirinkimas==1)
     {
         CVfd = "studentai10000.txt";
