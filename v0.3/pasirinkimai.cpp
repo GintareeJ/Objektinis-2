@@ -347,8 +347,8 @@ void KetvirtasP(std::vector<studentas>& studentai, const std::string& CVfd, cons
     int a;
     int r; //kintamasis rusiavimui
     int rus; //rusiavimui
-            cout<<"Pasirinkite, kur norite, kad butu spausdinami duomenys (0 - faile, 1 - ekrane): "<<std::endl;
             while (true) { 
+            cout<<"Pasirinkite, kur norite, kad butu spausdinami duomenys (0 - faile, 1 - ekrane): "<<std::endl;
             cin>>spausd; 
             if (cin.fail()) 
             { 
@@ -364,8 +364,8 @@ void KetvirtasP(std::vector<studentas>& studentai, const std::string& CVfd, cons
             break;
         }
             if(spausd==1){
+            while (true) {   
             cout << "Pasirinkite, kaip norite, kad butu skaiciuojamas galutinis balas - Vid (0) arba Med (1):" << std::endl;
-            while (true) { 
             cin>>a; 
             if (cin.fail()) 
             { 
@@ -383,8 +383,8 @@ void KetvirtasP(std::vector<studentas>& studentai, const std::string& CVfd, cons
             }
             if (a == 0)
             {
-            cout<<"Pasirinkite, pagal ka norite, jog butu suriuosatas studentu sarasas: 0 - vardas, 1 - pavarde, 2 - galutinis rez. (vid.)"<<std::endl;;
             while (true) { 
+            cout<<"Pasirinkite, pagal ka norite, jog butu suriuosatas studentu sarasas: 0 - vardas, 1 - pavarde, 2 - galutinis rez. (vid.)"<<std::endl;
             cin>>rus; 
             if (cin.fail()) 
             { 
@@ -403,8 +403,8 @@ void KetvirtasP(std::vector<studentas>& studentai, const std::string& CVfd, cons
                 auto start3 = high_resolution_clock::now(); 
                 if(rus==0) 
                 {
-                    cout<<"Ar norite, jog vardas butu surusiuotas didejanciai (0) ar mazejanciai (1)?"<<std::endl;
                     while (true) { 
+                    cout<<"Ar norite, jog vardas butu surusiuotas didejanciai (0) ar mazejanciai (1)?"<<std::endl;
                     cin>>r; 
                     if (cin.fail()) 
                     { 
@@ -424,8 +424,8 @@ void KetvirtasP(std::vector<studentas>& studentai, const std::string& CVfd, cons
                 }
                 if(rus==1) 
                 {
-                    cout<<"Ar norite, jog pavarde butu surusiuota didejanciai (0) ar mazejanciai (1)?"<<std::endl;
                     while (true) { 
+                    cout<<"Ar norite, jog pavarde butu surusiuota didejanciai (0) ar mazejanciai (1)?"<<std::endl;
                     cin>>r; 
                     if (cin.fail()) 
                     { 
@@ -445,8 +445,8 @@ void KetvirtasP(std::vector<studentas>& studentai, const std::string& CVfd, cons
                 }
                 if(rus==2) 
                 {
-                    cout<<"Ar norite, jog rez. vidurkis butu surusiuotas didejanciai (0) ar mazejanciai (1)?"<<std::endl;
                     while (true) { 
+                    cout<<"Ar norite, jog rez. vidurkis butu surusiuotas didejanciai (0) ar mazejanciai (1)?"<<std::endl;
                     cin>>r; 
                     if (cin.fail()) 
                     { 
@@ -478,8 +478,8 @@ void KetvirtasP(std::vector<studentas>& studentai, const std::string& CVfd, cons
                 suma5=duration<double>(end5-start5).count();
             }
             else {
-                cout<<"Pasirinkite, pagal ka norite, jog butu suriuosatas studentu sarasas: 0 - vardas, 1 - pavarde, 2 - galutinis rez. (med.)"<<std::endl;
-                while (true) { 
+                while (true) {  
+            cout<<"Pasirinkite, pagal ka norite, jog butu suriuosatas studentu sarasas: 0 - vardas, 1 - pavarde, 2 - galutinis rez. (med.)"<<std::endl;
             cin>>rus; 
             if (cin.fail()) 
             { 
@@ -498,8 +498,8 @@ void KetvirtasP(std::vector<studentas>& studentai, const std::string& CVfd, cons
                 auto start3 = high_resolution_clock::now(); 
                 if(rus==0) 
                 {
-                    cout<<"Ar norite, jog vardas butu surusiuotas didejanciai (0) ar mazejanciai (1)?"<<std::endl;
                     while (true) { 
+                    cout<<"Ar norite, jog vardas butu surusiuotas didejanciai (0) ar mazejanciai (1)?"<<std::endl;
                     cin>>r; 
                     if (cin.fail()) 
                     { 
@@ -519,8 +519,8 @@ void KetvirtasP(std::vector<studentas>& studentai, const std::string& CVfd, cons
                 }
                 if(rus==1) 
                 {
-                    cout<<"Ar norite, jog pavarde butu surusiuota didejanciai (0) ar mazejanciai (1)?"<<std::endl;
                     while (true) { 
+                    cout<<"Ar norite, jog pavarde butu surusiuota didejanciai (0) ar mazejanciai (1)?"<<std::endl;
                     cin>>r; 
                     if (cin.fail()) 
                     { 
@@ -540,8 +540,8 @@ void KetvirtasP(std::vector<studentas>& studentai, const std::string& CVfd, cons
                 }
                 if(rus==2) 
                 {
-                    cout<<"Ar norite, jog rez. mediana butu surusiuotas didejanciai (0) ar mazejanciai (1)?"<<std::endl;
                     while (true) { 
+                    cout<<"Ar norite, jog rez. mediana butu surusiuotas didejanciai (0) ar mazejanciai (1)?"<<std::endl;
                     cin>>r; 
                     if (cin.fail()) 
                     { 
@@ -576,8 +576,8 @@ void KetvirtasP(std::vector<studentas>& studentai, const std::string& CVfd, cons
         }
             if(spausd==0){
             std::ofstream fr(CVfr); 
-            cout << "Pasirinkite, kaip norite, kad butu skaiciuojamas galutinis balas - Vid (0) arba Med (1):" << std::endl;
             while (true) { 
+            cout << "Pasirinkite, kaip norite, kad butu skaiciuojamas galutinis balas - Vid (0) arba Med (1):" << std::endl;
                     cin>>a; 
                     if (cin.fail()) 
                     { 
@@ -594,8 +594,8 @@ void KetvirtasP(std::vector<studentas>& studentai, const std::string& CVfd, cons
                 }
             if (a == 0)
             {
-                cout<<"Pasirinkite, pagal ka norite, jog butu suriuosatas studentu sarasas: 0 - vardas, 1 - pavarde, 2 - galutinis rez. (vid.)"<<std::endl;
-                while (true) { 
+                while (true) {
+                cout<<"Pasirinkite, pagal ka norite, jog butu suriuosatas studentu sarasas: 0 - vardas, 1 - pavarde, 2 - galutinis rez. (vid.)"<<std::endl; 
                 cin>>rus; 
                 if (cin.fail()) 
                 { 
@@ -613,8 +613,8 @@ void KetvirtasP(std::vector<studentas>& studentai, const std::string& CVfd, cons
                 auto start4 = high_resolution_clock::now(); 
                 if(rus==0)
                 {
-                    cout<<"Ar norite, jog vardas butu surusiuotas didejanciai (0) ar mazejanciai (1)?"<<std::endl;
                     while (true) { 
+                    cout<<"Ar norite, jog vardas butu surusiuotas didejanciai (0) ar mazejanciai (1)?"<<std::endl;
                     cin>>r; 
                     if (cin.fail()) 
                     { 
@@ -632,9 +632,9 @@ void KetvirtasP(std::vector<studentas>& studentai, const std::string& CVfd, cons
                     if(r==1) sort(studentai.begin(), studentai.end(), MazVar);
                 }
                 if(rus==1)
-                {   
-                    cout<<"Ar norite, jog pavarde butu surusiuota didejanciai (0) ar mazejanciai (1)?"<<std::endl;
+                {  
                     while (true) { 
+                    cout<<"Ar norite, jog pavarde butu surusiuota didejanciai (0) ar mazejanciai (1)?"<<std::endl;
                     cin>>r; 
                     if (cin.fail()) 
                     { 
@@ -653,8 +653,8 @@ void KetvirtasP(std::vector<studentas>& studentai, const std::string& CVfd, cons
                 }
                 if(rus==2) 
                 {
-                    cout<<"Ar norite, jog rez. mediana butu surusiuota didejanciai (0) ar mazejanciai (1)?"<<std::endl;
                     while (true) { 
+                    cout<<"Ar norite, jog rez. mediana butu surusiuota didejanciai (0) ar mazejanciai (1)?"<<std::endl;
                     cin>>r; 
                     if (cin.fail()) 
                     { 
@@ -685,8 +685,8 @@ void KetvirtasP(std::vector<studentas>& studentai, const std::string& CVfd, cons
                 suma6=duration<double>(end6-start6).count();
             }
     else {
+                while (true) {  
                 cout<<"Pasirinkite, pagal ka norite, jog butu suriuosatas studentu sarasas: 0 - vardas, 1 - pavarde, 2 - galutinis rez. (vid.)"<<std::endl;
-                while (true) { 
                 cin>>rus; 
                 if (cin.fail()) 
                 { 
@@ -704,8 +704,8 @@ void KetvirtasP(std::vector<studentas>& studentai, const std::string& CVfd, cons
                 auto start4 = high_resolution_clock::now(); 
                 if(rus==0)
                 {
-                    cout<<"Ar norite, jog vardas butu surusiuotas didejanciai (0) ar mazejanciai (1)?"<<std::endl;
                     while (true) { 
+                    cout<<"Ar norite, jog vardas butu surusiuotas didejanciai (0) ar mazejanciai (1)?"<<std::endl;
                     cin>>r; 
                     if (cin.fail()) 
                     { 
@@ -724,8 +724,8 @@ void KetvirtasP(std::vector<studentas>& studentai, const std::string& CVfd, cons
                 }
                 if(rus==1)
                 {   
-                    cout<<"Ar norite, jog pavarde butu surusiuota didejanciai (0) ar mazejanciai (1)?"<<std::endl;
                     while (true) { 
+                    cout<<"Ar norite, jog pavarde butu surusiuota didejanciai (0) ar mazejanciai (1)?"<<std::endl;
                     cin>>r; 
                     if (cin.fail()) 
                     { 
@@ -744,8 +744,8 @@ void KetvirtasP(std::vector<studentas>& studentai, const std::string& CVfd, cons
                 }
                 if(rus==2) 
                 {
-                    cout<<"Ar norite, jog rez. mediana butu surusiuota didejanciai (0) ar mazejanciai (1)?"<<std::endl;
                     while (true) { 
+                    cout<<"Ar norite, jog rez. mediana butu surusiuota didejanciai (0) ar mazejanciai (1)?"<<std::endl;
                     cin>>r; 
                     if (cin.fail()) 
                     { 
