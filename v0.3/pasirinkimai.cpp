@@ -12,29 +12,8 @@
 using namespace std;
 using namespace std::chrono;
 
-void PirmasP(std::vector<studentas>& studentai) //jei pasirinkitas 1
+void Skaiciavimai(std::vector<studentas>& studentai)
 {
-    while (true) {
-        studentas s;
-        cout << "Iveskite studento varda (0 - baigti): ";
-        cin >> s.vardas;
-
-        if (s.vardas == "0")
-            break;
-
-        cout << "Iveskite pavarde: ";
-        cin >> s.pavarde;
-        cout << "Iveskite pazymius (0 - baigti), paskutinis egzaminas (min 2): ";
-        int p; //pazymiams
-        while(true)
-        {
-          cin>>p;
-          if (p == 0) break;
-          s.pazymiai.push_back(p);
-        }
-       studentai.push_back(s);
-    }
-
     double suma; //rezultatui skaiciuoti
     for(int i=0; i<studentai.size(); i++)
     {
@@ -64,10 +43,27 @@ void PirmasP(std::vector<studentas>& studentai) //jei pasirinkitas 1
         else med = (studentai[i].pazymiai[nd / 2 - 1] + studentai[i].pazymiai[nd / 2]) / 2.0;
         studentai[i].rez2=med*0.4+studentai[i].pazymiai.back()*0.6;
     }
-    
-    int a;
-    cout << "Pasirinkite, kaip norite, kad butu skaiciuojamas galutinis balas - Vid (0) arba Med (1):" << std::endl;
-            cin >> a;
+
+
+int a;
+while (true) {
+    try {
+        cout << "Pasirinkite, kaip norite, kad butu skaiciuojamas galutinis balas - Vid (0) arba Med (1):" << std::endl;
+        cin >> a;
+        if (cin.fail())
+            throw std::invalid_argument("Ivestas ne skaicius");
+
+        if (a != 0 && a != 1)
+            throw std::out_of_range("Galimi tik 0 arba 1");
+
+        break;
+    }
+    catch (const std::exception& e) {
+        cout << "Klaida: " << e.what() << "bandykite dar karta:\n"<<std::endl;
+        cin.clear();
+        cin.ignore(10000, '\n'); //pasirenkamas didelis skaicius, kad tikrai butu isvalyta ivedimo reiksme
+    }
+}
             if (a == 0)
             {
                 cout << std::left << std::setw(15) << "Pavarde" << std::left << std::setw(15) << "Vardas" << std::left << std::setw(15) << "Galutinis (Vid.)" << "\n";
@@ -85,6 +81,77 @@ void PirmasP(std::vector<studentas>& studentai) //jei pasirinkitas 1
                 }
                 cout << "-----------------------------------------------\n";
             }
+}
+void PirmasP(std::vector<studentas>& studentai) //jei pasirinkitas 1
+{
+    while (true) {
+        studentas s;
+        cout << "Iveskite studento varda (0 - baigti): ";
+        while (true) {
+    try {
+        cin >> s.vardas;
+
+        if (s.vardas == "0")
+            return;
+
+        for (char c : s.vardas) { //Tikriname ar visi simboliai yra raides
+            if (!isalpha(c)) {
+                throw std::invalid_argument("Varda gali sudaryti tik raides.");
+            }
+        }
+        break;
+    }
+    catch (const std::exception& e) {
+        cout << "Klaida: " << e.what() <<"bandykite dar karta:\n"<< endl;
+    }
+}
+    cout << "Iveskite pavarde: ";
+while (true) {
+    try {
+        cin >> s.pavarde;
+
+        for (char c : s.pavarde) { //Tikriname ar visi simboliai yra raides
+            if (!isalpha(c)) {
+                throw std::invalid_argument("Pavarde gali sudaryti tik raides");
+            }
+        }
+        break;
+    }
+    catch (const std::exception& e) {
+        cout << "Klaida: " << e.what() << "bandykite dar karta:\n"<<endl;
+    }
+}
+cout << "Iveskite pazymius (0 - baigti), paskutinis egzaminas (min 2): ";
+
+int p;
+while (true)
+{
+    cin >> p;
+
+    if (cin.fail()) {
+        cout << "Iveskite skaiciu: \n";
+        cin.clear();
+        cin.ignore(10000, '\n');
+        continue;
+    }
+
+    if (p == 0) {
+        if (s.pazymiai.size() < 2) {
+            cout << "Reikia ivesti bent 2 pazymius (paskutinis - egzaminas), veskite dar karta: \n";
+            continue;
+        }
+        break;
+    }
+
+    if (p < 1 || p > 10) {
+        cout << "Pazymys turi buti tarp 1 ir 10, veskite dar karta: \n";
+        continue;
+    }
+    s.pazymiai.push_back(p);
+}
+       studentai.push_back(s);
+    }
+    Skaiciavimai(studentai);
             studentai.clear();
 }
 
@@ -93,17 +160,59 @@ void AntrasP(std::vector<studentas>& studentai) //jei pasirinkitas 2
     while (true) {
         studentas s;
         cout << "Iveskite studento varda (0 - baigti): ";
+        while (true) {
+    try {
         cin >> s.vardas;
 
         if (s.vardas == "0")
-            break;
+            return;
 
-        cout << "Iveskite pavarde: ";
+        for (char c : s.vardas) { //Tikriname ar visi simboliai yra raides
+            if (!isalpha(c)) {
+                throw std::invalid_argument("Varda gali sudaryti tik raides.");
+            }
+        }
+        break;
+    }
+    catch (const std::exception& e) {
+        cout << "Klaida: " << e.what() << "bandykite dar karta:\n"<<endl;
+    }
+}
+    cout << "Iveskite pavarde: ";
+while (true) {
+    try {
         cin >> s.pavarde;
+
+        for (char c : s.pavarde) { //Tikriname ar visi simboliai yra raides
+            if (!isalpha(c)) {
+                throw std::invalid_argument("Pavarde gali sudaryti tik raides. ");
+            }
+        }
+        break;
+    }
+    catch (const std::exception& e) {
+        cout << "Klaida: " << e.what() << "bandykite dar karta:\n"<<endl;
+    }
+}    
         cout << "Pazymiai bus generuojami automatiskai, iveskite pazymiu kieki (min 2): ";
         int kiek=0; //pazymiu kiekis
-        int p; //pazymiams
-        cin>>kiek;
+        while (true) {
+    cin >> kiek;
+
+    if (cin.fail()) {
+        cout << "Iveskite skaiciu!\n";
+        cin.clear();
+        cin.ignore(10000, '\n');
+        continue;
+    }
+
+    if (kiek < 2) {
+        cout << "Pazymiu kiekis turi buti ne mazesnis nei 2, bandykite dar karta:\n";
+        continue;
+    }
+
+    break;
+}
         s.pazymiai.clear();
         s.pazymiai.resize(kiek);
         for(int i = 0; i < kiek; i++)
@@ -112,57 +221,7 @@ void AntrasP(std::vector<studentas>& studentai) //jei pasirinkitas 2
         }
         studentai.push_back(s);
     }
-
-    double suma; //rezultatui skaiciuoti
-    for(int i=0; i<studentai.size(); i++)
-    {
-        suma=0;
-        for(int j=0; j<studentai[i].pazymiai.size(); j++)
-        {
-            if (j != studentai[i].pazymiai.size() - 1) suma+=studentai[i].pazymiai[j]; //sumuojame, tik jei j nera egzamino pazymio numeris
-        }
-        studentai[i].rez=suma/(studentai[i].pazymiai.size()-1)*0.4+studentai[i].pazymiai.back()*0.6;
-    }
-    
-    //rusiuojame medianai
-    for(int i=0; i<studentai.size(); i++) //rikiuojame tik ND, be paskutinio egzamino
-    {
-        if(studentai[i].pazymiai.size() > 1) {
-            std::sort(studentai[i].pazymiai.begin(), studentai[i].pazymiai.end() - 1);
-        }
-    }
-    //skaiciuojame mediana ir bendra bala
-        for(int i=0; i<studentai.size(); i++)
-    {
-        int k = studentai[i].pazymiai.size();
-        int nd = k - 1;
-
-        double med;
-        if (nd % 2 == 1) med = studentai[i].pazymiai[nd / 2];
-        else med = (studentai[i].pazymiai[nd / 2 - 1] + studentai[i].pazymiai[nd / 2]) / 2.0;
-        studentai[i].rez2=med*0.4+studentai[i].pazymiai.back()*0.6;
-    }
-    
-    int a;
-    cout << "Pasirinkite, kaip norite, kad butu skaiciuojamas galutinis balas - Vid (0) arba Med (1):" << std::endl;
-            cin >> a;
-            if (a == 0)
-            {
-                cout << std::left << std::setw(15) << "Pavarde" << std::left << std::setw(15) << "Vardas" << std::left << std::setw(15) << "Galutinis (Vid.)" << "\n";
-                cout << "-----------------------------------------------\n";
-                for (int i = 0; i < studentai.size(); i++) {
-                    cout << std::left << std::setw(15) << studentai[i].pavarde << std::left << std::setw(15) << studentai[i].vardas<< std::fixed << std::setprecision(2) << studentai[i].rez << "\n";
-                }
-                cout << "-----------------------------------------------\n";
-            }
-            else {
-                cout << std::left << std::setw(15) << "Pavarde" << std::left << std::setw(15) << "Vardas" << std::left << std::setw(15) << "Galutinis (Med.)" << "\n";
-                cout << "-----------------------------------------------\n";
-                for (int i = 0; i < studentai.size(); i++) {
-                    cout << std::left << std::setw(15) << studentai[i].pavarde << std::left << std::setw(15) << studentai[i].vardas<<std::fixed << std::setprecision(2) << studentai[i].rez2 << "\n";
-                }
-                cout << "-----------------------------------------------\n";
-            }
+    Skaiciavimai(studentai);
             studentai.clear();
 }
 
@@ -173,10 +232,37 @@ void TreciasP(std::vector<studentas>& studentai, const std::vector<std::string>&
         int vardN = vardai.size();
         int pavN = pavardes.size();
         cout << "Sudentu vardai ir pavardes bus generuojami automatiskai, iveskite studentu kieki: ";
-        cin >> skiek;
+        while (true) {
+       cin >> skiek;
+
+    if (cin.fail()) {
+        cout << "Iveskite skaiciu!\n";
+        cin.clear();
+        cin.ignore(10000, '\n');
+        continue;
+    }
+
+    break;
+}
         cout << "Pazymiai bus generuojami automatiskai, iveskite pazymiu kieki (min 2): ";
         int kiek; //pazymiu kiekis
-        cin>>kiek;
+        while (true) {
+        cin >> kiek;
+
+    if (cin.fail()) {
+        cout << "Iveskite skaiciu!\n";
+        cin.clear();
+        cin.ignore(10000, '\n');
+        continue;
+    }
+
+    if (kiek < 2) {
+        cout << "Pazymiu kiekis turi buti ne mazesnis nei 2, bandykite dar karta:\n";
+        continue;
+    }
+
+    break;
+}
         for(int i=0; i<skiek; i++)
         {
              s.vardas = vardai[rand() % vardN];
@@ -194,64 +280,21 @@ void TreciasP(std::vector<studentas>& studentai, const std::vector<std::string>&
         }
         studentai.push_back(s);
         }
-    double suma; //rezultatui skaiciuoti
-    for(int i=0; i<studentai.size(); i++)
-    {
-        suma=0;
-        for(int j=0; j<studentai[i].pazymiai.size(); j++)
-        {
-            if (j != studentai[i].pazymiai.size() - 1) suma+=studentai[i].pazymiai[j]; //sumuojame, tik jei j nera egzamino pazymio numeris
-        }
-        studentai[i].rez=suma/(studentai[i].pazymiai.size()-1)*0.4+studentai[i].pazymiai.back()*0.6;
-    }
-    
-    //rusiuojame medianai
-    for(int i=0; i<studentai.size(); i++) //rikiuojame tik ND, be paskutinio egzamino
-    {
-        if(studentai[i].pazymiai.size() > 1) {
-            std::sort(studentai[i].pazymiai.begin(), studentai[i].pazymiai.end() - 1);
-        }
-    }
-    //skaiciuojame mediana ir bendra bala
-        for(int i=0; i<studentai.size(); i++)
-    {
-        int k = studentai[i].pazymiai.size();
-        int nd = k - 1;
-
-        double med;
-        if (nd % 2 == 1) med = studentai[i].pazymiai[nd / 2];
-        else med = (studentai[i].pazymiai[nd / 2 - 1] + studentai[i].pazymiai[nd / 2]) / 2.0;
-        studentai[i].rez2=med*0.4+studentai[i].pazymiai.back()*0.6;
-    }
-    
-    int a;
-    cout << "Pasirinkite, kaip norite, kad butu skaiciuojamas galutinis balas - Vid (0) arba Med (1):" << std::endl;
-            cin >> a;
-            if (a == 0)
-            {
-                cout << std::left << std::setw(15) << "Pavarde" << std::left << std::setw(15) << "Vardas" << std::left << std::setw(15) << "Galutinis (Vid.)" << "\n";
-                cout << "-----------------------------------------------\n";
-                for (int i = 0; i < studentai.size(); i++) {
-                    cout << std::left << std::setw(15) << studentai[i].pavarde << std::left << std::setw(15) << studentai[i].vardas<< std::fixed << std::setprecision(2) << studentai[i].rez << "\n";
-                }
-                cout << "-----------------------------------------------\n";
-            }
-            else {
-                cout << std::left << std::setw(15) << "Pavarde" << std::left << std::setw(15) << "Vardas" << std::left << std::setw(15) << "Galutinis (Med.)" << "\n";
-                cout << "-----------------------------------------------\n";
-                for (int i = 0; i < studentai.size(); i++) {
-                    cout << std::left << std::setw(15) << studentai[i].pavarde << std::left << std::setw(15) << studentai[i].vardas<<std::fixed << std::setprecision(2) << studentai[i].rez2 << "\n";
-                }
-                cout << "-----------------------------------------------\n";
-            }
-            studentai.clear();
+        Skaiciavimai(studentai);
+        studentai.clear();
 }
 
-void KetvirtasP(std::vector<studentas>& studentai, const std::string& CVfd, const std::string& CVfr, double& suma2, double& suma3, double& suma4, double& suma5, double& suma6, int& spausd) //jei pasirinkitas 4
+void KetvirtasP(std::vector<studentas>& studentai, const std::string& CVfd, const std::string& CVfr, double& suma2, double& suma3, double& suma4, double& suma5, double& suma6, int& spausd, bool& skaitytaIsFailo) //jei pasirinkitas 4
 {
+    skaitytaIsFailo=true;
     std::ifstream fd(CVfd);
-            studentai.clear();
-            std::string eilute;
+     if (!fd.is_open()) 
+     {
+        std::cerr << "Nepavyko atidaryti failo!\n";
+        std::terminate();
+     }
+        studentai.clear();
+        std::string eilute;
         auto start2 = high_resolution_clock::now(); 
             std::getline(fd, eilute); //praleidžia pirma eilute
         while (std::getline(fd, eilute))
@@ -271,7 +314,7 @@ void KetvirtasP(std::vector<studentas>& studentai, const std::string& CVfd, cons
          }
         auto end2 = high_resolution_clock::now(); 
         suma2=duration<double>(end2 - start2).count(); //laikas duomenu nuskaitymui
-         double suma; //rezultatui skaiciuoti
+        double suma; //rezultatui skaiciuoti
     for(int i=0; i<studentai.size(); i++)
     {
         suma=0;
@@ -305,33 +348,119 @@ void KetvirtasP(std::vector<studentas>& studentai, const std::string& CVfd, cons
     int r; //kintamasis rusiavimui
     int rus; //rusiavimui
             cout<<"Pasirinkite, kur norite, kad butu spausdinami duomenys (0 - faile, 1 - ekrane): "<<std::endl;
-            cin>>spausd;
+            while (true) { 
+            cin>>spausd; 
+            if (cin.fail()) 
+            { 
+                cout << "Iveskite skaiciu: \n"; 
+                cin.clear(); 
+                cin.ignore(10000, '\n'); 
+                continue; 
+            }
+            if (spausd!=0&&spausd!=1) { 
+                cout << "Skaicius turi buti 1 arba 0: \n"; 
+                continue; }
+
+            break;
+        }
             if(spausd==1){
             cout << "Pasirinkite, kaip norite, kad butu skaiciuojamas galutinis balas - Vid (0) arba Med (1):" << std::endl;
-            cin >> a;
+            while (true) { 
+            cin>>a; 
+            if (cin.fail()) 
+            { 
+                cout << "Iveskite skaiciu: \n"; 
+                cin.clear(); 
+                cin.ignore(10000, '\n'); 
+                continue; 
+
+            }
+            if (a!=0&&a!=1) { 
+                cout << "Skaicius turi buti 1 arba 0: \n"; 
+                continue; }
+
+                break;
+            }
             if (a == 0)
             {
-                cout<<"Pasirinkite, pagal ka norite, jog butu suriuosatas studentu sarasas: 0 - vardas, 1 - pavarde, 2 - galutinis rez. (vid.)"<<std::endl;;
-                cin>>rus;
+            cout<<"Pasirinkite, pagal ka norite, jog butu suriuosatas studentu sarasas: 0 - vardas, 1 - pavarde, 2 - galutinis rez. (vid.)"<<std::endl;;
+            while (true) { 
+            cin>>rus; 
+            if (cin.fail()) 
+            { 
+                cout << "Iveskite skaiciu: \n"; 
+                cin.clear(); 
+                cin.ignore(10000, '\n'); 
+                continue; 
+            }
+            if (rus!=0&&rus!=1&&rus!=2) { 
+                cout << "Skaicius turi buti 2, 1 arba 0: \n"; 
+                continue;
+            }
+
+            break;
+        }
                 auto start3 = high_resolution_clock::now(); 
                 if(rus==0) 
                 {
                     cout<<"Ar norite, jog vardas butu surusiuotas didejanciai (0) ar mazejanciai (1)?"<<std::endl;
-                    cin>>r;
+                    while (true) { 
+                    cin>>r; 
+                    if (cin.fail()) 
+                    { 
+                       cout << "Iveskite skaiciu: \n"; 
+                       cin.clear(); 
+                       cin.ignore(10000, '\n'); 
+                       continue; 
+                    }
+                    if (r!=0&&r!=1) { 
+                        cout << "Skaicius turi buti 1 arba 0: \n"; 
+                        continue; }
+                        
+                break;
+                }
                     if(r==0) sort(studentai.begin(), studentai.end(), DidVar);
                     if(r==1) sort(studentai.begin(), studentai.end(), MazVar);
                 }
                 if(rus==1) 
                 {
                     cout<<"Ar norite, jog pavarde butu surusiuota didejanciai (0) ar mazejanciai (1)?"<<std::endl;
-                    cin>>r;
+                    while (true) { 
+                    cin>>r; 
+                    if (cin.fail()) 
+                    { 
+                       cout << "Iveskite skaiciu: \n"; 
+                       cin.clear(); 
+                       cin.ignore(10000, '\n'); 
+                       continue; 
+                    }
+                    if (r!=0&&r!=1) { 
+                        cout << "Skaicius turi buti 1 arba 0: \n"; 
+                        continue; }
+                        
+                break;
+                }
                     if(r==0) sort(studentai.begin(), studentai.end(), DidPav);
                     if(r==1) sort(studentai.begin(), studentai.end(), MazPav);
                 }
                 if(rus==2) 
                 {
                     cout<<"Ar norite, jog rez. vidurkis butu surusiuotas didejanciai (0) ar mazejanciai (1)?"<<std::endl;
-                    cin>>r;
+                    while (true) { 
+                    cin>>r; 
+                    if (cin.fail()) 
+                    { 
+                       cout << "Iveskite skaiciu: \n"; 
+                       cin.clear(); 
+                       cin.ignore(10000, '\n'); 
+                       continue; 
+                    }
+                    if (r!=0&&r!=1) { 
+                        cout << "Skaicius turi buti 1 arba 0: \n"; 
+                        continue; }
+                        
+                break;
+                }
                     if(r==0) sort(studentai.begin(), studentai.end(), DidVid);
                     if(r==1) sort(studentai.begin(), studentai.end(), MazVid);
                 }
@@ -350,26 +479,83 @@ void KetvirtasP(std::vector<studentas>& studentai, const std::string& CVfd, cons
             }
             else {
                 cout<<"Pasirinkite, pagal ka norite, jog butu suriuosatas studentu sarasas: 0 - vardas, 1 - pavarde, 2 - galutinis rez. (med.)"<<std::endl;
-                cin>>rus;
+                while (true) { 
+            cin>>rus; 
+            if (cin.fail()) 
+            { 
+                cout << "Iveskite skaiciu: \n"; 
+                cin.clear(); 
+                cin.ignore(10000, '\n'); 
+                continue; 
+            }
+            if (rus!=0&&rus!=1&&rus!=2) { 
+                cout << "Skaicius turi buti 2, 1 arba 0: \n"; 
+                continue;
+            }
+            
+            break;
+        }
                 auto start3 = high_resolution_clock::now(); 
                 if(rus==0) 
                 {
                     cout<<"Ar norite, jog vardas butu surusiuotas didejanciai (0) ar mazejanciai (1)?"<<std::endl;
-                    cin>>r;
+                    while (true) { 
+                    cin>>r; 
+                    if (cin.fail()) 
+                    { 
+                       cout << "Iveskite skaiciu: \n"; 
+                       cin.clear(); 
+                       cin.ignore(10000, '\n'); 
+                       continue; 
+                    }
+                    if (r!=0&&r!=1) { 
+                        cout << "Skaicius turi buti 1 arba 0: \n"; 
+                        continue; }
+                        
+                break;
+                }
                     if(r==0) sort(studentai.begin(), studentai.end(), DidVar);
                     if(r==1) sort(studentai.begin(), studentai.end(), MazVar);
                 }
                 if(rus==1) 
                 {
                     cout<<"Ar norite, jog pavarde butu surusiuota didejanciai (0) ar mazejanciai (1)?"<<std::endl;
-                    cin>>r;
+                    while (true) { 
+                    cin>>r; 
+                    if (cin.fail()) 
+                    { 
+                       cout << "Iveskite skaiciu: \n"; 
+                       cin.clear(); 
+                       cin.ignore(10000, '\n'); 
+                       continue; 
+                    }
+                    if (r!=0&&r!=1) { 
+                        cout << "Skaicius turi buti 1 arba 0: \n"; 
+                        continue; }
+                        
+                break;
+                }
                     if(r==0) sort(studentai.begin(), studentai.end(), DidPav);
                     if(r==1) sort(studentai.begin(), studentai.end(), MazPav);
                 }
                 if(rus==2) 
                 {
                     cout<<"Ar norite, jog rez. mediana butu surusiuotas didejanciai (0) ar mazejanciai (1)?"<<std::endl;
-                    cin>>r;
+                    while (true) { 
+                    cin>>r; 
+                    if (cin.fail()) 
+                    { 
+                       cout << "Iveskite skaiciu: \n"; 
+                       cin.clear(); 
+                       cin.ignore(10000, '\n'); 
+                       continue; 
+                    }
+                    if (r!=0&&r!=1) { 
+                        cout << "Skaicius turi buti 1 arba 0: \n"; 
+                        continue; }
+                        
+                break;
+                }
                     if(r==0) sort(studentai.begin(), studentai.end(), DidMed);
                     if(r==1) sort(studentai.begin(), studentai.end(), MazMed);
                 }
@@ -391,30 +577,97 @@ void KetvirtasP(std::vector<studentas>& studentai, const std::string& CVfd, cons
             if(spausd==0){
             std::ofstream fr(CVfr); 
             cout << "Pasirinkite, kaip norite, kad butu skaiciuojamas galutinis balas - Vid (0) arba Med (1):" << std::endl;
-            cin>>a;
+            while (true) { 
+                    cin>>a; 
+                    if (cin.fail()) 
+                    { 
+                       cout << "Iveskite skaiciu: \n"; 
+                       cin.clear(); 
+                       cin.ignore(10000, '\n'); 
+                       continue; 
+                    }
+                    if (a!=0&&a!=1) { 
+                        cout << "Skaicius turi buti 1 arba 0: \n"; 
+                        continue; }
+                        
+                break;
+                }
             if (a == 0)
             {
                 cout<<"Pasirinkite, pagal ka norite, jog butu suriuosatas studentu sarasas: 0 - vardas, 1 - pavarde, 2 - galutinis rez. (vid.)"<<std::endl;
-                cin>>rus;
+                while (true) { 
+                cin>>rus; 
+                if (cin.fail()) 
+                { 
+                cout << "Iveskite skaiciu: \n"; 
+                cin.clear(); 
+                cin.ignore(10000, '\n'); 
+                continue; 
+                }
+            
+                if (rus!=0&&rus!=1&&rus!=2) { 
+                cout << "Skaicius turi buti 2, 1 arba 0: \n"; 
+                continue;}
+                break;
+            }
                 auto start4 = high_resolution_clock::now(); 
                 if(rus==0)
                 {
                     cout<<"Ar norite, jog vardas butu surusiuotas didejanciai (0) ar mazejanciai (1)?"<<std::endl;
-                    cin>>r;
+                    while (true) { 
+                    cin>>r; 
+                    if (cin.fail()) 
+                    { 
+                       cout << "Iveskite skaiciu: \n"; 
+                       cin.clear(); 
+                       cin.ignore(10000, '\n'); 
+                       continue; 
+                    }
+                    if (r!=0&&r!=1) { 
+                        cout << "Skaicius turi buti 1 arba 0: \n"; 
+                        continue; }
+                    break;
+                }
                     if(r==0) sort(studentai.begin(), studentai.end(), DidVar);
                     if(r==1) sort(studentai.begin(), studentai.end(), MazVar);
                 }
                 if(rus==1)
                 {   
                     cout<<"Ar norite, jog pavarde butu surusiuota didejanciai (0) ar mazejanciai (1)?"<<std::endl;
-                    cin>>r;
+                    while (true) { 
+                    cin>>r; 
+                    if (cin.fail()) 
+                    { 
+                       cout << "Iveskite skaiciu: \n"; 
+                       cin.clear(); 
+                       cin.ignore(10000, '\n'); 
+                       continue; 
+                    }
+                    if (r!=0&&r!=1) { 
+                        cout << "Skaicius turi buti 1 arba 0: \n"; 
+                        continue; }
+                        break;
+                }
                     if(r==0) sort(studentai.begin(), studentai.end(), DidPav);
                     if(r==1) sort(studentai.begin(), studentai.end(), MazPav);
                 }
                 if(rus==2) 
                 {
                     cout<<"Ar norite, jog rez. mediana butu surusiuota didejanciai (0) ar mazejanciai (1)?"<<std::endl;
-                    cin>>r;
+                    while (true) { 
+                    cin>>r; 
+                    if (cin.fail()) 
+                    { 
+                       cout << "Iveskite skaiciu: \n"; 
+                       cin.clear(); 
+                       cin.ignore(10000, '\n'); 
+                       continue; 
+                    }
+                    if (r!=0&&r!=1) { 
+                        cout << "Skaicius turi buti 1 arba 0: \n"; 
+                        continue; }
+                    break;
+                }
                     if(r==0) sort(studentai.begin(), studentai.end(), DidMed);
                     if(r==1) sort(studentai.begin(), studentai.end(), MazMed);
                 }
@@ -431,28 +684,81 @@ void KetvirtasP(std::vector<studentas>& studentai, const std::string& CVfd, cons
                 auto end6 = high_resolution_clock::now(); 
                 suma6=duration<double>(end6-start6).count();
             }
-            else {
+    else {
                 cout<<"Pasirinkite, pagal ka norite, jog butu suriuosatas studentu sarasas: 0 - vardas, 1 - pavarde, 2 - galutinis rez. (vid.)"<<std::endl;
-                cin>>rus;
+                while (true) { 
+                cin>>rus; 
+                if (cin.fail()) 
+                { 
+                cout << "Iveskite skaiciu: \n"; 
+                cin.clear(); 
+                cin.ignore(10000, '\n'); 
+                continue; 
+                }
+            if (rus!=0&&rus!=1&&rus!=2) { 
+                cout << "Skaicius turi buti 2, 1 arba 0: \n"; 
+                continue;
+                }
+                break;
+            }
                 auto start4 = high_resolution_clock::now(); 
                 if(rus==0)
                 {
                     cout<<"Ar norite, jog vardas butu surusiuotas didejanciai (0) ar mazejanciai (1)?"<<std::endl;
-                    cin>>r;
+                    while (true) { 
+                    cin>>r; 
+                    if (cin.fail()) 
+                    { 
+                       cout << "Iveskite skaiciu: \n"; 
+                       cin.clear(); 
+                       cin.ignore(10000, '\n'); 
+                       continue; 
+                    }
+                    if (r!=0&&r!=1) { 
+                        cout << "Skaicius turi buti 1 arba 0: \n"; 
+                        continue; }
+                    break;
+                }
                     if(r==0) sort(studentai.begin(), studentai.end(), DidVar);
                     if(r==1) sort(studentai.begin(), studentai.end(), MazVar);
                 }
                 if(rus==1)
                 {   
                     cout<<"Ar norite, jog pavarde butu surusiuota didejanciai (0) ar mazejanciai (1)?"<<std::endl;
-                    cin>>r;
+                    while (true) { 
+                    cin>>r; 
+                    if (cin.fail()) 
+                    { 
+                       cout << "Iveskite skaiciu: \n"; 
+                       cin.clear(); 
+                       cin.ignore(10000, '\n'); 
+                       continue; 
+                    }
+                    if (r!=0&&r!=1) { 
+                        cout << "Skaicius turi buti 1 arba 0: \n"; 
+                        continue; }
+                        break;
+                }
                     if(r==0) sort(studentai.begin(), studentai.end(), DidPav);
                     if(r==1) sort(studentai.begin(), studentai.end(), MazPav);
                 }
                 if(rus==2) 
                 {
                     cout<<"Ar norite, jog rez. mediana butu surusiuota didejanciai (0) ar mazejanciai (1)?"<<std::endl;
-                    cin>>r;
+                    while (true) { 
+                    cin>>r; 
+                    if (cin.fail()) 
+                    { 
+                       cout << "Iveskite skaiciu: \n"; 
+                       cin.clear(); 
+                       cin.ignore(10000, '\n'); 
+                       continue; 
+                    }
+                    if (r!=0&&r!=1) { 
+                        cout << "Skaicius turi buti 1 arba 0: \n"; 
+                        continue; }
+                    break;
+                }
                     if(r==0) sort(studentai.begin(), studentai.end(), DidMed);
                     if(r==1) sort(studentai.begin(), studentai.end(), MazMed);
                 }
