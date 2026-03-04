@@ -103,11 +103,12 @@ while (true) {
     }
 }
 }
-void RandPaz(std::vector<studentas>& studentai, studentas& s)
+void RandPaz(std::vector<studentas>& studentai, studentas& s, int& kiek)
 {
+
+    if(kiek==0){
     cout << "Pazymiai bus generuojami automatiskai, iveskite pazymiu kieki (min 2): ";
-        int kiek=0; //pazymiu kiekis
-        while (true) {
+    while (true) {
     cin >> kiek;
 
     if (cin.fail()) {
@@ -124,6 +125,7 @@ void RandPaz(std::vector<studentas>& studentai, studentas& s)
 
     break;
 }
+    }
         s.pazymiai.clear();
         s.pazymiai.resize(kiek);
         for(int i = 0; i < kiek; i++)
@@ -205,11 +207,13 @@ void PirmasP(std::vector<studentas>& studentai, int& b) //jei pasirinkimas 1
 {
 while (true) {
 studentas s;
+bool buvonulis = false;
 VardasPavarde(studentai, s);
+if (s.vardas == "0") break;
 int p;
+cout << "Iveskite pazymius (0 - baigti), paskutinis egzaminas (min 2): ";
 while (true)
 {
-    cout << "Iveskite pazymius (0 - baigti), paskutinis egzaminas (min 2): ";
     cin >> p;
 
     if (cin.fail()) {
@@ -220,6 +224,7 @@ while (true)
     }
 
     if (p == 0) {
+        buvonulis=true;
         if (s.pazymiai.size() < 2) {
             cout << "Reikia ivesti bent 2 pazymius (paskutinis - egzaminas), veskite dar karta: \n";
             continue;
@@ -232,30 +237,38 @@ while (true)
         continue;
     }
     s.pazymiai.push_back(p);
+    if (!buvonulis) 
+    {
+        cout << "Ivedimas turi buti uzbaigtas 0.\n";
+        buvonulis=true; //kad nekartotu pranesimo
+    }
 }
        studentai.push_back(s);
     }
     Skaiciavimai(studentai);
     Spausdinimas(studentai, b);
-            studentai.clear();
+    studentai.clear();
 }
 
 void AntrasP(std::vector<studentas>& studentai, int& b) //jei pasirinkimas 2
 {
+    int kiek=0;
     while (true) {
         studentas s;
         VardasPavarde(studentai, s);
-        RandPaz(studentai, s);
+        if (s.vardas == "0") break;
+        RandPaz(studentai, s, kiek);
     }
     Skaiciavimai(studentai);
     Spausdinimas(studentai, b);
-            studentai.clear();
+    studentai.clear();
 }
 
 void TreciasP(std::vector<studentas>& studentai, const std::vector<std::string>& pavardes,  const std::vector<std::string>& vardai, int& b) //jei pasirinkitas 3
 {
     studentas s;
         int skiek; //studentu kiekis
+        int kiek=0; //pazymiams
         int vardN = vardai.size();
         int pavN = pavardes.size();
         cout << "Sudentu vardai ir pavardes bus generuojami automatiskai, iveskite studentu kieki: ";
@@ -273,14 +286,14 @@ void TreciasP(std::vector<studentas>& studentai, const std::vector<std::string>&
 }
         for(int i=0; i<skiek; i++)
         {
-             s.vardas = vardai[rand() % vardN];
+            s.vardas = vardai[rand() % vardN];
                 if (s.vardas.back() == 's') {
                     do { s.pavarde = pavardes[rand() % pavN]; } while (s.pavarde.back() != 's');
                 } else {
                     do { s.pavarde = pavardes[rand() % pavN]; } while (s.pavarde.back() == 's');
                 }
+            RandPaz(studentai, s, kiek);
         }
-        RandPaz(studentai, s);
         Skaiciavimai(studentai);
         Spausdinimas(studentai, b);
         studentai.clear();
@@ -430,8 +443,8 @@ void KetvirtasP(std::vector<studentas>& studentai, const std::string& CVfd, cons
                 if(rus==2) 
                 {
                     r=kintr(r);
-                    if(r==0) sort(studentai.begin(), studentai.end(), DidMed);
-                    if(r==1) sort(studentai.begin(), studentai.end(), MazMed);
+                    if(r==0) sort(studentai.begin(), studentai.end(), DidVid);
+                    if(r==1) sort(studentai.begin(), studentai.end(), MazVid);
                 }
                 auto end4 = high_resolution_clock::now(); 
                 suma4=duration<double>(end4-start4).count();
