@@ -5,6 +5,7 @@
 #include <fstream>
 #include <sstream>
 #include <chrono>
+#include <random>
 
 #include "rusiavimas.h"
 #include "studentas.h"
@@ -498,4 +499,46 @@ void KetvirtasP(std::vector<studentas>& studentai, const std::string& CVfd, cons
             }
             studentai.clear();
         }
+}
+
+void GeneruotiStudentuFaila(const std::string& failoPav, int studentuKiekis, int ndKiekis)
+{
+    std::ofstream fr(failoPav);
+    if (!fr.is_open()) {
+        throw std::runtime_error("Nepavyko sukurti failo");
+    }
+
+    //spausdiname antraste
+    fr << std::left << std::setw(20) << "Vardas" << std::left << std::setw(20) << "Pavarde";
+
+    for (int i = 1; i <= ndKiekis; i++) {
+        fr << std::left << std::setw(8) <<"ND"<<i;
+    }
+    fr << std::left << std::setw(8) << "Egz." << "\n";
+
+    std::mt19937 gen(std::random_device{}());
+    std::uniform_int_distribution<int> pazymys(1, 10);
+
+    for (int i = 1; i <= studentuKiekis; i++) {
+        fr << std::left << std::setw(20) <<"VardasNR"<<i<<" "<< std::left << std::setw(20) <<"PavardeNR"<<i<<" ";
+        for (int j = 0; j < ndKiekis; j++) {
+            fr << std::left << std::setw(8) << pazymys(gen);
+        }
+        fr << std::left << std::setw(8) << pazymys(gen) << "\n";
+    }
+
+    fr.close();
+}
+
+void GeneruotiVisusFailus()
+{
+    auto start = high_resolution_clock::now();
+    int ndKiekis = 5; //pasirinktas bet koks nd kiekis
+    GeneruotiStudentuFaila("studentai1000.txt", 1000, ndKiekis);
+    GeneruotiStudentuFaila("studentai10000.txt", 10000, ndKiekis);
+    GeneruotiStudentuFaila("studentai100000.txt", 100000, ndKiekis);
+    GeneruotiStudentuFaila("studentai1000000.txt", 1000000, ndKiekis);
+    GeneruotiStudentuFaila("studentai10000000.txt", 10000000, ndKiekis);
+    auto end = high_resolution_clock::now();
+    cout<< "Visi 5 failai sugeneruoti per: "<< duration<double>(end - start).count()<< " s\n";
 }
