@@ -163,7 +163,7 @@ int kintrus(int& rus)
 {
     int x;
     while (true) { 
-            cout<<"Pasirinkite, pagal ka norite, jog butu suriuosatas studentu sarasas: 0 - vardas, 1 - pavarde, 2 - galutinis rez. (vid.)"<<std::endl;
+            cout<<"Pasirinkite, pagal ka norite, jog butu suriuosatas studentu sarasas: 0 - vardas, 1 - pavarde, 2 - galutinis rez. (vid. arba med.)"<<std::endl;
             cin>>x; 
             if (cin.fail()) 
             { 
@@ -186,7 +186,7 @@ int kintr(int& r)
 {
     int x;
   while (true) { 
-    cout<<"Ar norite, jog vardas butu surusiuotas didejanciai (0) ar mazejanciai (1)?"<<std::endl;
+    cout<<"Ar norite, jog jusu pasirinkimas butu surusiuotas didejanciai (0) ar mazejanciai (1)?"<<std::endl;
     cin>>x; 
     if (cin.fail()) 
     { 
@@ -512,7 +512,7 @@ void GeneruotiStudentuFaila(const std::string& failoPav, int studentuKiekis, int
     fr << std::left << std::setw(20) << "Vardas" << std::left << std::setw(20) << "Pavarde";
 
     for (int i = 1; i <= ndKiekis; i++) {
-        fr << std::left << std::setw(8) <<"ND"<<i;
+        fr << std::left << std::setw(8) <<("ND" + std::to_string(i));
     }
     fr << std::left << std::setw(8) << "Egz." << "\n";
 
@@ -520,7 +520,7 @@ void GeneruotiStudentuFaila(const std::string& failoPav, int studentuKiekis, int
     std::uniform_int_distribution<int> pazymys(1, 10);
 
     for (int i = 1; i <= studentuKiekis; i++) {
-        fr << std::left << std::setw(20) <<"VardasNR"<<i<<" "<< std::left << std::setw(20) <<"PavardeNR"<<i<<" ";
+        fr << std::left << std::setw(20) <<("VardasNR" + std::to_string(i))<< std::left << std::setw(20) <<("PavardeNR" + std::to_string(i));
         for (int j = 0; j < ndKiekis; j++) {
             fr << std::left << std::setw(8) << pazymys(gen);
         }
@@ -530,15 +530,162 @@ void GeneruotiStudentuFaila(const std::string& failoPav, int studentuKiekis, int
     fr.close();
 }
 
-void GeneruotiVisusFailus()
+void NuskaitytiIsFailo(std::vector<studentas>& studentai, const std::string& failoPav)
 {
-    auto start = high_resolution_clock::now();
+    std::ifstream fd(failoPav);
+    if (!fd.is_open()) {
+        throw std::runtime_error("Nepavyko atidaryti failo");
+    }
+
+    studentai.clear();
+    std::string eilute;
+    std::getline(fd, eilute); //praleidziame antraste
+
+    while (std::getline(fd, eilute)) {
+        std::stringstream st(eilute);
+        studentas s;
+        int p;
+        st>>s.vardas>>s.pavarde;
+        s.pazymiai.clear();
+        while (st >> p) {
+            s.pazymiai.push_back(p);
+        }
+        studentai.push_back(s);
+    }
+
+    fd.close();
+}
+
+void PadalintiStudentus(const std::vector<studentas>& studentai, std::vector<studentas>& vargsiukai, std::vector<studentas>& kietiakai, int b)
+{
+    vargsiukai.clear();
+    kietiakai.clear();
+    for (int i = 0; i < studentai.size(); i++)
+    {
+        if (b == 0)
+        {
+            if (studentai[i].rez < 5.0) vargsiukai.push_back(studentai[i]);
+            else kietiakai.push_back(studentai[i]);
+        }
+        else
+        {
+            if (studentai[i].rez2 < 5.0) vargsiukai.push_back(studentai[i]);
+            else kietiakai.push_back(studentai[i]);
+        }
+    }
+}
+void RusiuotiStudentus(std::vector<studentas>& studentai, int b, int r, int rus)
+{
+    if (b == 0)
+    {
+        if (rus == 0)
+        {
+            if (r == 0) sort(studentai.begin(), studentai.end(), DidVar);
+            else sort(studentai.begin(), studentai.end(), MazVar);
+        }
+        else if (rus == 1)
+        {
+            if (r == 0) sort(studentai.begin(), studentai.end(), DidPav);
+            else sort(studentai.begin(), studentai.end(), MazPav);
+        }
+        else if (rus == 2)
+        {
+            if (r == 0) sort(studentai.begin(), studentai.end(), DidVid);
+            else sort(studentai.begin(), studentai.end(), MazVid);
+        }
+    }
+    else
+    {
+        if (rus == 0)
+        {
+            if (r == 0) sort(studentai.begin(), studentai.end(), DidVar);
+            else sort(studentai.begin(), studentai.end(), MazVar);
+        }
+        else if (rus == 1)
+        {
+            if (r == 0) sort(studentai.begin(), studentai.end(), DidPav);
+            else sort(studentai.begin(), studentai.end(), MazPav);
+        }
+        else if (rus == 2)
+        {
+            if (r == 0) sort(studentai.begin(), studentai.end(), DidMed);
+            else sort(studentai.begin(), studentai.end(), MazMed);
+        }
+    }
+}
+
+template <typename Konteineris>
+void SpausdintiIFaila(const std::string& failoPav, const Konteineris& studentai, int b)
+{
+    std::ofstream fr(failoPav);
+    if (b == 0)
+    {
+        fr << std::left << std::setw(15) << "Pavarde"<< std::left << std::setw(15) << "Vardas"<< std::left << std::setw(15) << "Galutinis (Vid.)" << "\n";
+        for (const auto& s : studentai)
+        {
+            fr << std::left << std::setw(15) << s.pavarde<< std::left << std::setw(15) << s.vardas<< std::fixed << std::setprecision(2) << s.rez << "\n";
+        }
+    }
+    else
+    {
+        fr << std::left << std::setw(15) << "Pavarde"<< std::left << std::setw(15) << "Vardas"<< std::left << std::setw(15) << "Galutinis (Med.)" << "\n";
+        for (const auto& s : studentai)
+        {
+            fr << std::left << std::setw(15) << s.pavarde<< std::left << std::setw(15) << s.vardas<< std::fixed << std::setprecision(2) << s.rez2 << "\n";
+        }
+    }
+
+    fr.close();
+}
+void PenktasP(std::vector<studentas>& studentai, std::vector<studentas>& vargsiukai, std::vector<studentas>& kietiakai)
+{
+    int b;
+    int rus;
+    int r;
+    rus = kintrus(rus);
+    r = kintr(r);
+    b=kinta();//spausdinimo pasirinkimas;
+    
     int ndKiekis = 5; //pasirinktas bet koks nd kiekis
     GeneruotiStudentuFaila("studentai1000.txt", 1000, ndKiekis);
+    NuskaitytiIsFailo(studentai, "studentai1000.txt");
+    Skaiciavimai(studentai);
+    RusiuotiStudentus(studentai, b, r, rus);
+    PadalintiStudentus(studentai, vargsiukai, kietiakai, b);
+    SpausdintiIFaila("Vargsiukai1000.txt", vargsiukai, b);
+    SpausdintiIFaila("Kietiakai1000.txt", kietiakai, b);
+
     GeneruotiStudentuFaila("studentai10000.txt", 10000, ndKiekis);
+    NuskaitytiIsFailo(studentai, "studentai10000.txt");
+    Skaiciavimai(studentai);
+    RusiuotiStudentus(studentai, b, r, rus);
+    PadalintiStudentus(studentai, vargsiukai, kietiakai, b);
+    SpausdintiIFaila("Vargsiukai10000.txt", vargsiukai, b);
+    SpausdintiIFaila("Kietiakai10000.txt", kietiakai, b);
+
     GeneruotiStudentuFaila("studentai100000.txt", 100000, ndKiekis);
+    NuskaitytiIsFailo(studentai, "studentai100000.txt");
+    Skaiciavimai(studentai);
+    RusiuotiStudentus(studentai, b, r, rus);
+    PadalintiStudentus(studentai, vargsiukai, kietiakai, b);
+    SpausdintiIFaila("Vargsiukai100000.txt", vargsiukai, b);
+    SpausdintiIFaila("Kietiakai100000.txt", kietiakai, b);
+
     GeneruotiStudentuFaila("studentai1000000.txt", 1000000, ndKiekis);
+    NuskaitytiIsFailo(studentai, "studentai1000000.txt");
+    Skaiciavimai(studentai);
+    RusiuotiStudentus(studentai, b, r, rus);
+    PadalintiStudentus(studentai, vargsiukai, kietiakai, b);
+    SpausdintiIFaila("Vargsiukai1000000.txt", vargsiukai, b);
+    SpausdintiIFaila("Kietiakai1000000.txt", kietiakai, b);
+
     GeneruotiStudentuFaila("studentai10000000.txt", 10000000, ndKiekis);
-    auto end = high_resolution_clock::now();
-    cout<< "Visi 5 failai sugeneruoti per: "<< duration<double>(end - start).count()<< " s\n";
+    NuskaitytiIsFailo(studentai, "studentai10000000.txt");
+    Skaiciavimai(studentai);
+    RusiuotiStudentus(studentai, b, r, rus);
+    PadalintiStudentus(studentai, vargsiukai, kietiakai, b);
+    SpausdintiIFaila("Vargsiukai10000000.txt", vargsiukai, b);
+    SpausdintiIFaila("Kietiakai10000000.txt", kietiakai, b);    
+
+
 }
