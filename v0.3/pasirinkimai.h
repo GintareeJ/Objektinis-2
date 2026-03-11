@@ -22,6 +22,6 @@ void PadalintiStudentus(const std::vector<studentas>& studentai, std::vector<stu
 void RusiuotiStudentus(std::vector<studentas>& studentai, int b, int r, int rus);
 template <typename Konteineris>
 void SpausdintiIFaila(const std::string& failoPav, const Konteineris& studentai, int b);
-void ApdorojamasFailas(const std::string& pradinisFailas, const std::string& vargFailas, const std::string& kietFailas, std::vector<studentas> studentai, std::vector<studentas> vargsiukai, std::vector<studentas> kietiakai, int ndKiekis, int studentuKiekis, int r, int rus, int b);
+void DarbasSuFailu(const std::string& pradinisFailas, const std::string& vargFailas, const std::string& kietFailas, std::vector<studentas>& studentai, std::vector<studentas>& vargsiukai, std::vector<studentas>& kietiakai, int ndKiekis, int studentuKiekis, int r, int rus, int b);
 void PenktasP(std::vector<studentas>& studentai, std::vector<studentas>& vargsiukai, std::vector<studentas>& kietiakai);
 #endif
