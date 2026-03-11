@@ -52,13 +52,13 @@ srand(time(nullptr)); //kad kiekviena karta butu generuojami skirtingi pazymiai
     //meniu
     int m = 0;
     while (m != 5) {
-        cout << "Pasirinkite, kokiu budu norite, kad programa vykdytu uzduoti (1 - duomenu irasymas ranka, 2 - generuoti tik pazymius, 3 - generuoti studentu vardus, pavardes ir pazymius, 4 - nuskaityti duomenis is failo,  5 - baigti darba): " << std::endl;
+        cout << "Pasirinkite, kokiu budu norite, kad programa vykdytu uzduoti (1 - duomenu irasymas ranka, 2 - generuoti tik pazymius, 3 - generuoti studentu vardus, pavardes ir pazymius, 4 - nuskaityti duomenis is failo,  5 - generuoti failus, 6 - baigti darba): " << std::endl;
         while(true){
         try{
         cin >> m;
         if(std::cin.fail()) 
            throw std::invalid_argument("Ivesta reiksme nera skaicius");
-        if (m<1||m>5) 
+        if (m<1||m>6) 
             throw std::out_of_range("Tokio pasirinkimo nera");
 
         break;
@@ -155,7 +155,20 @@ srand(time(nullptr)); //kad kiekviena karta butu generuojami skirtingi pazymiai
         cout<< "Klaida: "<<e.what()<<std::endl;
     }
         }
-        if (m == 5) cout << "Baigiamas darbas.\n";
+    if(m==5) 
+    {
+       try
+    {
+        //bus prideta
+    }
+        catch (const std::exception& e)
+        {
+            cout<< "Klaida: "<<e.what()<<std::endl;
+        }
+    }
+    
+    if (m == 6) cout << "Baigiamas darbas.\n";
+    
     } 
     auto end1 = high_resolution_clock::now();
     suma1 += duration<double>(end1 - start1).count();
