@@ -1,15 +1,15 @@
-Studentų rūšiavimo ir failų generavimo programa v0.4
+## Studentų rūšiavimo ir failų generavimo programa v0.4
 
-Projekto aprašymas:
+### Projekto aprašymas:
 
 Ši programos versija v0.4 sukurta v0.3 pagrindu.  
 Programoje realizuotas studentų failų generatorius, studentų duomenų nuskaitymas, galutinio balo skaičiavimas, studentų skirstymas į dvi kategorijas ir rezultatų išvedimas į atskirus failus.
 
-Studentai skirstomi į dvi grupes:
+#### Studentai skirstomi į dvi grupes:
 - vargšiukai – kai galutinis balas `< 5.0`
 - kietiakai – kai galutinis balas `>= 5.0`
 
-v0.4 versijoje atlikti koregavimai:
+#### v0.4 versijoje atlikti koregavimai:
 - Sukurta nauja šaka v0.4 pagal v0.3
 - Pridėta failų generatoriaus funkcija
 - Sugeneruoti 5 skirtingų dydžių studentų failai:
@@ -22,7 +22,7 @@ v0.4 versijoje atlikti koregavimai:
 - Sugeneruoti rezultatai išvedami į du atskirus failus
 - Atlikta programos spartos analizė, testavimas
 
-Tyrimai:
+#### Tyrimai:
 Buvo atlikti 2 pagrindiniai tyrimai.
 
 1 tyrimas – failų kūrimo sparta
@@ -39,6 +39,7 @@ Buvo matuojama:
 - bendras programos veikimo laikas
 
 
-Testavimo rezultatai:
+#### Testavimo rezultatai:
 
-
+![Testai](images/image1.png)
+![Testai](images/image2.png)
