@@ -44,5 +44,5 @@ Buvo matuojama:
 
 #### Testavimo rezultatai:
 
-![Testai](images/nuotrauka.png)
-![Testai](images/nuotrauka1.png)
+![Testai](images/nuotrauka2.png)
+![Testai](images/nuotrauka3.png)
