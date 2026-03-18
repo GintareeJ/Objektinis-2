@@ -1,48 +1,40 @@
-## Studentų rūšiavimo ir failų generavimo programa v0.4
+## Studentų rūšiavimo ir failų generavimo programa v1.0
 
 ### Projekto aprašymas:
-
-Ši programos versija v0.4 sukurta v0.3 pagrindu.  
+Ši programos versija v1.0 sukurta v0.4 pagrindu.
 Programoje realizuotas studentų failų generatorius, studentų duomenų nuskaitymas, galutinio balo skaičiavimas, studentų skirstymas į dvi kategorijas ir rezultatų išvedimas į atskirus failus.
 
+Papildomai atliktas skirtingų konteinerių veikimo spartos tyrimas.
+
 #### Studentai skirstomi į dvi grupes:
-- vargšiukai – kai galutinis balas `< 5.0`
-- kietiakai – kai galutinis balas `>= 5.0`
+- vargšiukai – kai galutinis balas < 5.0
+- kietiakai – kai galutinis balas >= 5.0
 
-#### v0.4 versijoje atlikti koregavimai:
-- Sukurta nauja šaka v0.4 pagal v0.3
-- Pridėta failų generatoriaus funkcija
-- Sugeneruoti 5 skirtingų dydžių studentų failai:
-  - 1000 įrašų
-  - 10000 įrašų
-  - 100000 įrašų
-  - 1000000 įrašų
-  - 10000000 įrašų
-- Įgyvendintas studentų skirstymas į dvi grupes
-- Sugeneruoti rezultatai išvedami į du atskirus failus
-- Atlikta programos spartos analizė, testavimas
+#### v1.0 versijoje atlikti koregavimai:
+- Sukurta nauja šaka v1.0 pagal v0.4
+- Išlaikytas failų generatorius ir testavimo failai
+- Įgyvendintas konteinerių veikimo spartos tyrimas naudojant:
+  - std::vector
+  - std::list
+  - std::deque
+- Programoje pritaikyta galimybė testuoti skirtingus konteinerius
+- Atlikta išsami spartos analizė su skirtingais konteineriais
 
-#### Tyrimai:
-Kompiuterio parametrai: 
+#### Tyrimas:
+
+Kompiuterio parametrai:
 ![Parametrai](images/PC.png)
 
-Buvo atlikti 2 pagrindiniai tyrimai.
-
-1 tyrimas – failų kūrimo sparta
-Šio tyrimo metu matuotas:
-- failo sukūrimo laikas
-- duomenų įrašymo laikas
-- failo uždarymo laikas
-
-2 tyrimas – duomenų apdorojimo sparta 
 Buvo matuojama:
-- duomenų nuskaitymas iš failo
+- duomenų nuskaitymas iš failo į atitinkamą konteinerį
+- rūšiavimas didėjančia tvarka konteineryje
 - studentų skirstymas į dvi grupes
-- rezultatų išvedimas į du naujus failus
-- bendras programos veikimo laikas
 
 
 #### Testavimo rezultatai:
 
-![Testai](images/image1.png)
-![Testai](images/image2.png)
+![Testai](images/nuotrauka1.png)
+![Testai](images/nuotrauka2.png)
+![Testai](images/nuotrauka3.png)
+![Testai](images/nuotrauka4.png)
+![Testai](images/nuotrauka5.png)
