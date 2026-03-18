@@ -3,6 +3,8 @@
 
 #include <string>
 #include <vector>
+#include <deque>
+#include <list>
 
 struct studentas {
     std::string vardas;
