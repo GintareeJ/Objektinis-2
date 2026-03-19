@@ -428,15 +428,6 @@ void GeneruotiStudentuFaila(const std::string& failoPav, int studentuKiekis, int
     fr.close();
 }
 
-void Tyrimas1(const std::string& failoPav, int studentuKiekis, int ndKiekis)
-{
-    cout<<"1 TYRIMAS"<<std::endl;
-    auto start = high_resolution_clock::now();
-    GeneruotiStudentuFaila(failoPav, studentuKiekis, ndKiekis);
-    auto end = high_resolution_clock::now();
-    cout<<studentuKiekis<<" irasu failo kurimo laikas: "<<std::chrono::duration<double>(end - start).count()<<" s\n";
-}    
-
 void PenktasP()
 {
     int b;
@@ -501,6 +492,36 @@ void RusiuotiBendras(std::list<studentas>& studentai, int b, int r, int rus) //j
         else {
             if (r == 0) studentai.sort(DidMed);
             else studentai.sort(MazMed);
+        }
+    }
+}
+
+void PadalintiStudentusBendras2(std::list<studentas>& studentai, std::list<studentas>& vargsiukai, int b) // pagal antra strategija, jei list
+{
+    vargsiukai.clear();
+
+    for (auto it = studentai.begin(); it != studentai.end();) {
+        if (b == 0) {
+            if (it->rez < 5.0) 
+            {
+                vargsiukai.push_back(*it);
+                it=studentai.erase(it);
+            }
+         else
+         {
+            ++it;
+         }
+        } 
+        else {
+            if (it->rez2 < 5.0) 
+            {
+                vargsiukai.push_back(*it);
+                it=studentai.erase(it);
+            }
+         else
+         {
+            ++it;
+         }
         }
     }
 }
