@@ -52,12 +52,12 @@ Programoje realizuotas studentų failų generatorius, studentų duomenų nuskait
 - Atlikta spartos analizė su skirtingais konteineriais
 - Bandytos 3 strategijos geriausiai spartai rasti
 
-#### Tyrimai:
+### Tyrimai:
 
 Kompiuterio parametrai:
 ![Parametrai](images/PC.png)
 
-#### Tyrimas pagal 1 strategiją:
+### Tyrimas pagal 1 strategiją:
 Buvo matuojama:
 - duomenų nuskaitymas iš failo į atitinkamą konteinerį
 - rūšiavimas didėjančia tvarka konteineryje
@@ -72,10 +72,10 @@ Buvo matuojama:
 ![Testai](images/nuotrauka5.png)
 
 #### RAM kaita prieš programos paleidimą ir jos veikimo metu:
+![ram](images/RAM2.png)
+![ram](images/RAMper2.png) 
 
-
-
-#### Tyrimas paga 2 strategiją:
+### Tyrimas paga 2 strategiją:
 Buvo matuojama:
 - duomenų nuskaitymas iš failo į atitinkamą konteinerį
 - rūšiavimas didėjančia tvarka konteineryje
@@ -88,11 +88,12 @@ Buvo matuojama:
 ![testai](images/2strat3.png)
 
 #### RAM kaita prieš programos paleidimą ir jos veikimo metu:
-
+![ram](images/RAM1.png)
+![ram](images/RAMper1.png)
 
 #### Pastebime, kad RAM mažiau apkrautas 2 strategijos veikimo metu, tačiau ties 1000000 įrašų failu rezultatų nebesulaukiame. List naudojant šią strategiją veikia itin sparčiai. Vector ir deque reikalingas spartinimas. Tam naudosime std::stable_partition.
 
-#### Tyrimas paga 3 strategiją:
+### Tyrimas paga 3 strategiją:
 Buvo matuojama:
 - duomenų nuskaitymas iš failo į atitinkamą konteinerį
 - rūšiavimas didėjančia tvarka konteineryje
@@ -107,4 +108,5 @@ Buvo matuojama:
 ![testai](images/3strat5.png)
 
 #### RAM kaita prieš programos paleidimą ir jos veikimo metu:
-
+![ram](images/RAM3.png)
+![ram](images/RAMper3.png)
