@@ -603,12 +603,12 @@ void PenktasP(std::vector<studentas>& studentai, std::vector<studentas>& vargsiu
     Tyrimas1("studentai10000.txt", 10000, ndKiekis);
     DarbasSuFailu("studentai10000.txt", "vargsiukai10000.txt", "kietiakai10000.txt", studentai, vargsiukai, kietiakai, ndKiekis, 10000, r, rus, b);
     
-    Tyrimas1("studentai1000.txt", 100000, ndKiekis);
+    Tyrimas1("studentai100000.txt", 100000, ndKiekis);
     DarbasSuFailu("studentai100000.txt", "vargsiukai100000.txt", "kietiakai100000.txt", studentai, vargsiukai, kietiakai, ndKiekis, 100000, r, rus, b);
     
-    Tyrimas1("studentai1000.txt", 1000000, ndKiekis);
+    Tyrimas1("studentai1000000.txt", 1000000, ndKiekis);
     DarbasSuFailu("studentai1000000.txt", "vargsiukai1000000.txt", "kietiakai1000000.txt", studentai, vargsiukai, kietiakai, ndKiekis, 1000000, r, rus, b);
     
-    Tyrimas1("studentai1000.txt", 10000000, ndKiekis);
+    Tyrimas1("studentai10000000.txt", 10000000, ndKiekis);
     DarbasSuFailu("studentai10000000.txt", "vargsiukai10000000.txt", "kietiakai10000000.txt", studentai, vargsiukai, kietiakai, ndKiekis, 10000000, r, rus, b);
 }
