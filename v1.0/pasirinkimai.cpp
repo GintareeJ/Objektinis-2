@@ -433,35 +433,35 @@ void PenktasP()
     int b;
     int rus;
     int r;
-
+    int ndKiekis=5;
     rus = kintrus(rus);
     r = kintr(r);
     b = kinta();
 
     cout << "\n1000 irasu\n";
-    TestuotiKonteineri<std::vector<studentas>>("vector", "studentai1000.txt", b, r, rus);
-    TestuotiKonteineri<std::list<studentas>>("list", "studentai1000.txt", b, r, rus);
-    TestuotiKonteineri<std::deque<studentas>>("deque", "studentai1000.txt", b, r, rus);
+    TestuotiKonteineri<std::vector<studentas>>("vector", "studentai1000.txt", 1000, ndKiekis, b, r, rus, 3);
+    TestuotiKonteineri<std::list<studentas>>("list", "studentai1000.txt", 1000, ndKiekis, b, r, rus, 2);
+    TestuotiKonteineri<std::deque<studentas>>("deque", "studentai1000.txt", 1000, ndKiekis, b, r, rus, 3);
 
     cout << "\n10000 irasu\n";
-    TestuotiKonteineri<std::vector<studentas>>("vector", "studentai10000.txt", b, r, rus);
-    TestuotiKonteineri<std::list<studentas>>("list", "studentai10000.txt", b, r, rus);
-    TestuotiKonteineri<std::deque<studentas>>("deque", "studentai10000.txt", b, r, rus);
+    TestuotiKonteineri<std::vector<studentas>>("vector", "studentai10000.txt", 10000, ndKiekis, b, r, rus, 3);
+    TestuotiKonteineri<std::list<studentas>>("list", "studentai10000.txt", 10000, ndKiekis, b, r, rus, 2);
+    TestuotiKonteineri<std::deque<studentas>>("deque", "studentai10000.txt", 10000, ndKiekis, b, r, rus, 3);
 
     cout << "\n100000 irasu\n";
-    TestuotiKonteineri<std::vector<studentas>>("vector", "studentai100000.txt", b, r, rus);
-    TestuotiKonteineri<std::list<studentas>>("list", "studentai100000.txt", b, r, rus);
-    TestuotiKonteineri<std::deque<studentas>>("deque", "studentai100000.txt", b, r, rus);
+    TestuotiKonteineri<std::vector<studentas>>("vector", "studentai100000.txt", 100000, ndKiekis, b, r, rus, 3);
+    TestuotiKonteineri<std::list<studentas>>("list", "studentai100000.txt", 100000, ndKiekis, b, r, rus, 2);
+    TestuotiKonteineri<std::deque<studentas>>("deque", "studentai100000.txt", 100000, ndKiekis, b, r, rus, 3);
 
     cout << "\n1000000 irasu\n";
-    TestuotiKonteineri<std::vector<studentas>>("vector", "studentai1000000.txt", b, r, rus);
-    TestuotiKonteineri<std::list<studentas>>("list", "studentai1000000.txt", b, r, rus);
-    TestuotiKonteineri<std::deque<studentas>>("deque", "studentai1000000.txt", b, r, rus);
+    TestuotiKonteineri<std::vector<studentas>>("vector", "studentai1000000.txt", 1000000, ndKiekis, b, r, rus, 3);
+    TestuotiKonteineri<std::list<studentas>>("list", "studentai1000000.txt", 1000000, ndKiekis, b, r, rus, 2);
+    TestuotiKonteineri<std::deque<studentas>>("deque", "studentai1000000.txt", 1000000, ndKiekis, b, r, rus, 3);
 
     cout << "\n10000000 irasu\n";
-    TestuotiKonteineri<std::vector<studentas>>("vector", "studentai10000000.txt", b, r, rus);
-    TestuotiKonteineri<std::list<studentas>>("list", "studentai10000000.txt", b, r, rus);
-    TestuotiKonteineri<std::deque<studentas>>("deque", "studentai10000000.txt", b, r, rus);
+    TestuotiKonteineri<std::vector<studentas>>("vector", "studentai10000000.txt", 10000000, ndKiekis, b, r, rus, 3);
+    TestuotiKonteineri<std::list<studentas>>("list", "studentai10000000.txt", 10000000, ndKiekis, b, r, rus, 2);
+    TestuotiKonteineri<std::deque<studentas>>("deque", "studentai10000000.txt", 10000000, ndKiekis, b, r, rus, 3);
 }
 
 void RusiuotiBendras(std::list<studentas>& studentai, int b, int r, int rus) //jei list
