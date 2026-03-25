@@ -96,11 +96,7 @@ Buvo matuojama:
 ![testai](images/2strat2.png)
 ![testai](images/2strat3.png)
 
-#### RAM kaita prieš programos paleidimą ir jos veikimo metu:
-![ram](images/ram2.png)
-![ram](images/ramper2.png)
-
-#### Pastebime, kad RAM mažiau apkrautas 2 strategijos veikimo metu, tačiau ties 1000000 įrašų failu rezultatų nebesulaukiame. List naudojant šią strategiją veikia itin sparčiai. Vector ir deque reikalingas spartinimas. Tam naudosime std::stable_partition.
+#### Pastebime, kad RAM 1 strategijos veikimo metu apkrautas per daug, tačiau naudojant 2 strategiją ties 1000000 įrašų failu rezultatų nebesulaukiame. List naudojant šią strategiją veikia itin sparčiai. Vector ir deque reikalingas spartinimas. Tam naudosime std::stable_partition.
 
 ### Tyrimas paga 3 strategiją:
 Buvo matuojama:
@@ -116,6 +112,3 @@ Buvo matuojama:
 ![testai](images/3strat4.png)
 ![testai](images/3strat5.png)
 
-#### RAM kaita prieš programos paleidimą ir jos veikimo metu:
-![ram](images/RAM3.png)
-![ram](images/RAMper3.png)
