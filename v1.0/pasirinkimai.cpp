@@ -72,7 +72,7 @@ void Spausdinimas(std::vector<studentas>& studentai, int& b)
                 cout << "-----------------------------------------------\n";
             }
 }
-void VardasPavarde(std::vector<studentas>& studentai, studentas& s)
+void VardasPavarde(studentas& s)
 {
     while (true) {
     try {
@@ -215,7 +215,7 @@ void PirmasP(std::vector<studentas>& studentai, int& b) //jei pasirinkimas 1
 while (true) {
 studentas s;
 bool buvonulis = false;
-VardasPavarde(studentai, s);
+VardasPavarde(s);
 if (s.vardas == "0") break;
 int p;
 cout << "Iveskite pazymius (0 - baigti), paskutinis egzaminas (min 2): ";
@@ -263,7 +263,7 @@ void AntrasP(std::vector<studentas>& studentai, int& b) //jei pasirinkimas 2
     int kiek=0;
     while (true) {
         studentas s;
-        VardasPavarde(studentai, s);
+        VardasPavarde(s);
         if (s.vardas == "0") break;
         RandPaz(studentai, s, kiek);
     }
