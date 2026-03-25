@@ -7,9 +7,10 @@
    - Paleisti „MSYS2 UCRT64“ terminalą
    - Įdiegti reikalingus įrankius: pacman -S mingw-w64-ucrt-x86_64-gcc make git
 3. Įveskite šią eilutę: git clone https://github.com/GintareeJ/Objektinis-1
-4. Pereikite į projekto katalogą: cd Objektinis-1
-5. Įrašykite "make run" norėdami paleisti programą
-6. Jei norite ištrinti sukompiliuotą failą, įrašykite "make clean"
+4. Patikrinkite, kuriame branch esate ir įveskite "git branch". Jei branch nėra main, įveskite "git checkout main".
+5. Pereikite į projekto katalogą: cd Objektinis-1/v1.0
+6. Įrašykite "make run" norėdami paleisti programą
+7. Jei norite ištrinti sukompiliuotą failą, įrašykite "make clean"
 
 ## Ankstesni release: 
 ### v0.1
