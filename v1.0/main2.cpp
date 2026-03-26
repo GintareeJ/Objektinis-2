@@ -1,9 +1,10 @@
 #include <iostream>
 #include <vector>
+#include <list>
+#include <deque>
 #include <string>
 #include <cstdlib>
 #include <ctime>
-#include <iomanip>
 #include <iomanip>
 #include <algorithm>
 #include <fstream>
@@ -24,7 +25,6 @@ using namespace std::chrono;
 
 
 int main() {
-    std::vector<int>paz;
 double suma1=0; //visam programos vykdymui
 double suma2=0; //duomenu nuskaitymui
 double suma3=0; //duomenu rusiavimui ekrane
@@ -34,7 +34,8 @@ double suma6=0; //duomenu spausdinimui faile
 int spausd;
 int b;
 bool skaitytaIsFailo = false;
-int ndKiekis=5;
+int strategija;
+int studentuKiekis;
 
 std::string CVfd;
 std::string CVfr="rezultatas.txt";
@@ -162,7 +163,7 @@ srand(time(nullptr)); //kad kiekviena karta butu generuojami skirtingi pazymiai
     {
        try
     {
-        PenktasP(studentai, vargsiukai, kietiakai);
+        PenktasP();
     }
         catch (const std::exception& e)
         {
