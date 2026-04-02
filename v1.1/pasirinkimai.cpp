@@ -456,10 +456,10 @@ void PenktasP()
     b = kinta();
     
     cout << "\n100000 irasu\n";
-    TestuotiKonteineri<std::vector<Studentas>>("vector", "studentai100000.txt", 100000, ndKiekis, b, r, rus, 1);
+    TestuotiKonteineri<std::vector<Studentas>>("vector", "studentai100000.txt", 100000, ndKiekis, b, r, rus, 3);
 
     cout << "\n1000000 irasu\n";
-    TestuotiKonteineri<std::vector<Studentas>>("vector", "studentai1000000.txt", 1000000, ndKiekis, b, r, rus, 1);
+    TestuotiKonteineri<std::vector<Studentas>>("vector", "studentai1000000.txt", 1000000, ndKiekis, b, r, rus, 3);
 }
 
 void RusiuotiBendras(std::list<Studentas>& studentai, int b, int r, int rus) //jei list
