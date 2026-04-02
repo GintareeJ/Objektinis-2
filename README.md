@@ -30,6 +30,9 @@ Rezultatai class kodo su -O1, -O2, -O3
 ![Class rezultatai](images2/class2.png)
 ![Class rezultatai](images2/class3.png)
 
+#### Rezultatų lentelė
+![Rezultatai](images2/table.png)
+
 #### Rezultatai be optimizavimo
 ![Rezultatai](images2/beOPstruct.png)
 ![Rezultatai](images2/beOPclass.png)
