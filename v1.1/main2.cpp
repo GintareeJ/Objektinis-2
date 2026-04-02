@@ -20,10 +20,6 @@ using std::string;
 using std::cout;
 using namespace std::chrono;
 
-
-//darbas atliktas su vector konteineriu
-
-
 int main() {
 double suma1=0; //visam programos vykdymui
 double suma2=0; //duomenu nuskaitymui
@@ -34,8 +30,6 @@ double suma6=0; //duomenu spausdinimui faile
 int spausd;
 int b;
 bool skaitytaIsFailo = false;
-int strategija;
-int studentuKiekis;
 
 std::string CVfd;
 std::string CVfr="rezultatas.txt";
@@ -46,9 +40,9 @@ int vardN = sizeof(vardai) / sizeof(vardai[0]);
 std::vector<std::string> pavardesVec(pavardes, pavardes + pavN);
 std::vector<std::string> vardaiVec(vardai, vardai + vardN);
 
-std::vector<studentas> studentai;
-std::vector<studentas> vargsiukai;
-std::vector<studentas> kietiakai;
+std::vector<Studentas> studentai;
+std::vector<Studentas> vargsiukai;
+std::vector<Studentas> kietiakai;
 srand(time(nullptr)); //kad kiekviena karta butu generuojami skirtingi pazymiai
 
     auto start1 = high_resolution_clock::now(); 
