@@ -21,18 +21,18 @@
 
 #### Rezultatai
 Rezultatai struct kodo su -O1, -O2, -O3
-![Struct rezultatai](images/struct1.png)
-![Struct rezultatai](images/struct2.png)
-![Struct rezultatai](images/struct3.png)
+![Struct rezultatai](images2/struct1.png)
+![Struct rezultatai](images2/struct2.png)
+![Struct rezultatai](images2/struct3.png)
 
 Rezultatai class kodo su -O1, -O2, -O3
-![Class rezultatai](images/class1.png)
-![Class rezultatai](images/class2.png)
-![Class rezultatai](images/class3.png)
+![Class rezultatai](images2/class1.png)
+![Class rezultatai](images2/class2.png)
+![Class rezultatai](images2/class3.png)
 
 #### Rezultatai be optimizavimo
-![Rezultatai](images/beOPstruct.png)
-![Rezultatai](images/beOPclass.png)
+![Rezultatai](images2/beOPstruct.png)
+![Rezultatai](images2/beOPclass.png)
 
 
 #### Išvados
