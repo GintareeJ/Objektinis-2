@@ -1,114 +1,41 @@
-# Programa analizuojanti studentų duomenis
+# V1.1
+#### Programos v1.1 versija:
+- nuskaito studentų duomenis iš failo
+- apskaičiuoja galutinį balą (vidurkis arba mediana)
+- surūšiuoja studentus
+- padalina į grupes (pagal balą)
+- leidžia testuoti skirtingus konteinerius (vector, list, deque)
+- matuoja veikimo laikus:
+  - nuskaitymo
+  - rūšiavimo
+  - skirstymo
+  - bendrą veikimo laiką
 
-## Naudojimosi instrukcija
-1. Atsidarykite savo OS terminalą
-2. Jei naudojate Windows, rekomenduojama naudoti MSYS2 aplinką:
-   - Atsisiųsti: https://www.msys2.org/
-   - Paleisti „MSYS2 UCRT64“ terminalą
-   - Įdiegti reikalingus įrankius: pacman -S mingw-w64-ucrt-x86_64-gcc make git
-3. Įveskite šią eilutę: git clone https://github.com/GintareeJ/Objektinis-1
-4. Patikrinkite, kuriame branch esate ir įveskite "git branch". Jei branch nėra main, įveskite "git checkout main".
-5. Pereikite į projekto katalogą: cd Objektinis-1/v1.0
-6. Įrašykite "make run" norėdami paleisti programą
-7. Jei norite ištrinti sukompiliuotą failą, įrašykite "make clean"
+#### Struct ir class versijų palyginimas:
+- naudotas konteineris: vector
+- naudota dalijimo strategija: 3 strategija
+- testuoti failai:
+  - 100000 įrašų
+  - 1000000 įrašų
+- naudoti optimizavimo flagai -O1, -O2, -O3
 
-## Ankstesni release: 
-### v0.1
-* Sukurta pradinė programos versija
-* Įgyvendintas studentų duomenų įvedimas ranka ir generavimas atsitiktinai
-* Apskaičiuojamas galutinis balas (vidurkis ir mediana)
-* Realizuotas bazinis meniu pasirinkimams
-* Naudota dinaminė atmintis (C masyvai) ir std::vector konteineris
-### v0.2
-* Patobulinta ankstesnė versija
-* Pridėtas duomenų nuskaitymas iš failų (skirtingo dydžio testiniai failai)
-* Galimybė pasirinkti galutinio balo skaičiavimo būdą (vidurkis arba mediana)
-* Rezultatų išvedimas į ekraną arba failą
-* Programa veikia cikliškai pagal vartotojo pasirinkimus
-### v0.3
-* Pagerinta programos struktūra
-* Kodas išskaidytas į kelis .cpp ir .h failus
-* Pridėtas exception handling (klaidų valdymas)
-* Pagerintas programos aiškumas
-### v0.4
-* Pridėtas failų generavimas testavimui
-* Įgyvendintas studentų rūšiavimas pagal reikalavimus
-Studentai skirstomi į dvi grupes:
-  * „kietiakai“
-  * „vargšiukai“
-* Sukuriami atskiri failai kiekvienai studentų grupei
-* Atlikti pirminiai programos veikimo spartos testai
+#### Rezultatai
+Rezultatai struct kodo su -O1, -O2, -O3
+![Struct rezultatai](images/struct1.png)
+![Struct rezultatai](images/struct2.png)
+![Struct rezultatai](images/struct3.png)
+
+Rezultatai class kodo su -O1, -O2, -O3
+![Class rezultatai](images/class1.png)
+![Class rezultatai](images/class2.png)
+![Class rezultatai](images/class3.png)
+
+#### Rezultatai be optimizavimo
+![Rezultatai](images/beOPstruct.png)
+![Rezultatai](images/beOPclass.png)
 
 
-## v1.0 - studentų rūšiavimo ir failų generavimo programa
-
-### Aprašymas:
-Ši programos versija v1.0 sukurta v0.4 pagrindu.
-Programoje realizuotas studentų failų generatorius, studentų duomenų nuskaitymas, galutinio balo skaičiavimas, studentų optimizuotas skirstymas į dvi kategorijas ir rezultatų išvedimas į atskirus failus. Papildomai atliktas skirtingų konteinerių veikimo spartos tyrimas.
-
-#### Studentai skirstomi į dvi grupes:
-- vargšiukai – kai galutinis balas < 5.0
-- kietiakai – kai galutinis balas >= 5.0
-
-#### v1.0 versijoje atlikti koregavimai:
-- Sukurta nauja šaka v1.0 pagal v0.4
-- Išlaikytas failų generatorius ir testavimo failai
-- Įgyvendintas konteinerių veikimo spartos tyrimas naudojant:
-  - std::vector
-  - std::list
-  - std::deque
-- Programoje pritaikyta galimybė testuoti skirtingus konteinerius
-- Atlikta spartos analizė su skirtingais konteineriais
-- Bandytos 3 strategijos geriausiai spartai rasti
-
-### Tyrimai:
-
-Kompiuterio parametrai:
-![Parametrai](images/PC.png)
-
-### Tyrimas pagal 1 strategiją:
-Buvo matuojama:
-- duomenų nuskaitymas iš failo į atitinkamą konteinerį
-- rūšiavimas didėjančia tvarka konteineryje
-- studentų skirstymas į dvi grupes
-
-#### Testavimo rezultatai:
-
-![Testai](images/nuotrauka1.png)
-![Testai](images/nuotrauka2.png)
-![Testai](images/nuotrauka3.png)
-![Testai](images/nuotrauka4.png)
-![Testai](images/nuotrauka5.png)
-
-#### RAM kaita prieš programos paleidimą ir jos veikimo metu:
-![ram](images/ram1.png)
-![ram](images/ramper1.png) 
-
-### Tyrimas paga 2 strategiją:
-Buvo matuojama:
-- duomenų nuskaitymas iš failo į atitinkamą konteinerį
-- rūšiavimas didėjančia tvarka konteineryje
-- studentų skirstymas į vargšiukų grupę, jei atitinka reikalavimus ir naikinimas iš bendro studentų sąrašo taip jame paliekant tik kietiakus
-
-#### Testavimo rezultatai:
-
-![testai](images/2strat1.png)
-![testai](images/2strat2.png)
-![testai](images/2strat3.png)
-
-#### Pastebime, kad RAM 1 strategijos veikimo metu apkrautas per daug, tačiau naudojant 2 strategiją ties 1000000 įrašų failu rezultatų nebesulaukiame. List naudojant šią strategiją veikia itin sparčiai. Vector ir deque reikalingas spartinimas. Tam naudosime std::stable_partition.
-
-### Tyrimas paga 3 strategiją:
-Buvo matuojama:
-- duomenų nuskaitymas iš failo į atitinkamą konteinerį
-- rūšiavimas didėjančia tvarka konteineryje
-- studentų skirstymas į vargšiukų grupę, jei atitinka reikalavimus ir naikinimas iš bendro studentų sąrašo taip jame paliekant tik kietiakus (skirtingai list nuo deque ir vector, kad visi veiktų sparčiai)
-
-#### Testavimo rezultatai:
-
-![testai](images/3strat1.png)
-![testai](images/3strat2.png)
-![testai](images/3strat3.png)
-![testai](images/3strat4.png)
-![testai](images/3strat5.png)
-
+#### Išvados
+- struct maždaug 2s veikia greičiau už class, išskyrus -O3 optimiazvimą (skirtumo beveik nėra)
+- .exe failų dydžiai naudojant klases yra mažesni
+- optimizavimas sumažina .exe failų dydį ir padidina greitį
