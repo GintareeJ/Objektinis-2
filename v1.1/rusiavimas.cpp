@@ -1,16 +1,11 @@
-#ifndef RUSIAVIMAS_H
-#define RUSIAVIMAS_H
+#include "rusiavimas.h"
 
-#include "studentas.h"
+bool DidPav(const Studentas &A, const Studentas &B) { return A.pavarde() < B.pavarde(); }
+bool DidVar(const Studentas &A, const Studentas &B) { return A.vardas() < B.vardas(); }
+bool DidVid(const Studentas &A, const Studentas &B) { return A.rez() < B.rez(); }
+bool DidMed(const Studentas &A, const Studentas &B) { return A.rez2() < B.rez2(); }
 
-bool DidPav(const Studentas &A, const Studentas &B);
-bool DidVar(const Studentas &A, const Studentas &B);
-bool DidVid(const Studentas &A, const Studentas &B);
-bool DidMed(const Studentas &A, const Studentas &B);
-
-bool MazPav(const Studentas &A, const Studentas &B);
-bool MazVar(const Studentas &A, const Studentas &B);
-bool MazVid(const Studentas &A, const Studentas &B);
-bool MazMed(const Studentas &A, const Studentas &B);
-
-#endif
+bool MazPav(const Studentas &A, const Studentas &B) { return A.pavarde() > B.pavarde(); }
+bool MazVar(const Studentas &A, const Studentas &B) { return A.vardas() > B.vardas(); }
+bool MazVid(const Studentas &A, const Studentas &B) { return A.rez() > B.rez(); }
+bool MazMed(const Studentas &A, const Studentas &B) { return A.rez2() > B.rez2(); }
