@@ -8,17 +8,17 @@
 using namespace std::chrono;
 using std::cout;
 
-void Skaiciavimai(std::vector<studentas>& studentai, int b);
-void Spausdinimas(std::vector<studentas>& studentai, int& b);
-void VardasPavarde(studentas& s);
+void Skaiciavimai(std::vector<Studentas>& studentai, int b);
+void Spausdinimas(std::vector<Studentas>& studentai, int& b);
+bool VardasPavarde(Studentas& s);
 int kinta();
 int kintrus(int& rus);
 int kintr(int& r);
-void RandPaz(std::vector<studentas>& studentai, studentas& s, int& kiek);
-void PirmasP(std::vector<studentas>& studentai, int& b);
-void AntrasP(std::vector<studentas>& studentai, int& b);
-void TreciasP(std::vector<studentas>& studentai, const std::vector<std::string>& pavardes,  const std::vector<std::string>& vardai, int& b);
-void KetvirtasP(std::vector<studentas>& studentai, const std::string& CVfd, const std::string& CVfr, double& suma2, double& suma3, double& suma4, double& suma5, double& suma6, int& spausd, bool& skaitytaIsFailo, int& b);
+void RandPaz(std::vector<Studentas>& studentai, Studentas& s, int& kiek);
+void PirmasP(std::vector<Studentas>& studentai, int& b);
+void AntrasP(std::vector<Studentas>& studentai, int& b);
+void TreciasP(std::vector<Studentas>& studentai, const std::vector<std::string>& pavardes,  const std::vector<std::string>& vardai, int& b);
+void KetvirtasP(std::vector<Studentas>& studentai, const std::string& CVfd, const std::string& CVfr, double& suma2, double& suma3, double& suma4, double& suma5, double& suma6, int& spausd, bool& skaitytaIsFailo, int& b);
 void GeneruotiStudentuFaila(const std::string& failoPav, int studentuKiekis, int ndKiekis);
 template <typename Konteineris>void SpausdintiIFaila(const std::string& failoPav, const Konteineris& studentai, int b)
 {
@@ -28,7 +28,7 @@ template <typename Konteineris>void SpausdintiIFaila(const std::string& failoPav
         fr << std::left << std::setw(15) << "Pavarde"<< std::left << std::setw(15) << "Vardas"<< std::left << std::setw(15) << "Galutinis (Vid.)" << "\n";
         for (const auto& s : studentai)
         {
-            fr << std::left << std::setw(15) << s.pavarde<< std::left << std::setw(15) << s.vardas<< std::fixed << std::setprecision(2) << s.rez << "\n";
+            fr << std::left << std::setw(15) << s.pavarde()<< std::left << std::setw(15) << s.vardas()<< std::fixed << std::setprecision(2) << s.rez() << "\n";
         }
     }
     else
@@ -36,7 +36,7 @@ template <typename Konteineris>void SpausdintiIFaila(const std::string& failoPav
         fr << std::left << std::setw(15) << "Pavarde"<< std::left << std::setw(15) << "Vardas"<< std::left << std::setw(15) << "Galutinis (Med.)" << "\n";
         for (const auto& s : studentai)
         {
-            fr << std::left << std::setw(15) << s.pavarde<< std::left << std::setw(15) << s.vardas<< std::fixed << std::setprecision(2) << s.rez2 << "\n";
+            fr << std::left << std::setw(15) << s.pavarde()<< std::left << std::setw(15) << s.vardas()<< std::fixed << std::setprecision(2) << s.rez2() << "\n";
         }
     }
 
@@ -49,25 +49,30 @@ void SkaiciavimaiBendras(Konteineris& studentai, int b)
 {
     if (b == 0) {
         for (auto& s : studentai) {
+            auto& paz = s.pazymiaiRef();
+            if (paz.size() < 2) continue;
+
             double suma = 0.0;
-            for (size_t j = 0; j + 1 < s.pazymiai.size(); j++) {
-                suma += s.pazymiai[j];
+            for (size_t j = 0; j + 1 < paz.size(); j++) {
+                suma += paz[j];
             }
-            s.rez = suma / (s.pazymiai.size() - 1) * 0.4 + s.pazymiai.back() * 0.6;
+
+            s.setRez(suma / (paz.size() - 1) * 0.4 + paz.back() * 0.6);
         }
     } else {
         for (auto& s : studentai) {
-             std::sort(s.pazymiai.begin(), s.pazymiai.end() - 1);
-        }
+            auto& paz = s.pazymiaiRef();
+            if (paz.size() < 2) continue;
 
-        for (auto& s : studentai) {
-            int nd = s.pazymiai.size() - 1;
+            std::sort(paz.begin(), paz.end() - 1);
+
+            int nd = paz.size() - 1;
             double med;
 
-            if (nd % 2 == 1) med = s.pazymiai[nd / 2];
-            else med = (s.pazymiai[nd / 2 - 1] + s.pazymiai[nd / 2]) / 2.0;
+            if (nd % 2 == 1) med = paz[nd / 2];
+            else med = (paz[nd / 2 - 1] + paz[nd / 2]) / 2.0;
 
-            s.rez2 = med * 0.4 + s.pazymiai.back() * 0.6;
+            s.setRez2(med * 0.4 + paz.back() * 0.6);
         }
     }
 }
@@ -87,12 +92,16 @@ void NuskaitytiIsFailoBendras(Konteineris& studentai, const std::string& failoPa
 
     while (std::getline(fd, eilute)) {
         std::stringstream st(eilute);
-        studentas s;
+        Studentas s;
+        std::string vardas, pavarde;
         int p;
 
-        st >> s.vardas >> s.pavarde;
+        st >> vardas >> pavarde;
+        s.setVardas(vardas);
+        s.setPavarde(pavarde);
+
         while (st >> p) {
-            s.pazymiai.push_back(p);
+            s.addPazymys(p);
         }
 
         studentai.push_back(s);
@@ -107,47 +116,47 @@ void PadalintiStudentusBendras1(const Konteineris& studentai, Konteineris& vargs
 
     for (const auto& s : studentai) {
         if (b == 0) {
-            if (s.rez < 5.0) vargsiukai.push_back(s);
+            if (s.rez() < 5.0) vargsiukai.push_back(s);
             else kietiakai.push_back(s);
         } else {
-            if (s.rez2 < 5.0) vargsiukai.push_back(s);
+            if (s.rez2() < 5.0) vargsiukai.push_back(s);
             else kietiakai.push_back(s);
         }
     }
 }
 
 template <typename Konteineris>
-void PadalintiStudentusBendras2(Konteineris& studentai, Konteineris& vargsiukai, int b) // pagal antra strategija
+void PadalintiStudentusBendras2(Konteineris& studentai, Konteineris& vargsiukai, int b)
 {
     vargsiukai.clear();
 
-    for (size_t i=0; i<studentai.size();) {
+    for (size_t i = 0; i < studentai.size();) {
         if (b == 0) {
-            if (studentai[i].rez < 5.0) 
+            if (studentai[i].rez() < 5.0)
             {
                 vargsiukai.push_back(studentai[i]);
                 studentai.erase(studentai.begin() + i);
             }
-         else
-         {
-            ++i;
-         }
-        } 
+            else
+            {
+                ++i;
+            }
+        }
         else {
-            if (studentai[i].rez2 < 5.0) 
+            if (studentai[i].rez2() < 5.0)
             {
                 vargsiukai.push_back(studentai[i]);
                 studentai.erase(studentai.begin() + i);
             }
-         else
-         {
-            ++i;
-         }
+            else
+            {
+                ++i;
+            }
         }
     }
 }
 
-void PadalintiStudentusBendras2(std::list<studentas>& studentai, std::list<studentas>& vargsiukai, int b);
+void PadalintiStudentusBendras2(std::list<Studentas>& studentai, std::list<Studentas>& vargsiukai, int b);
 
 template <typename Konteineris>
 void RusiuotiBendras(Konteineris& studentai, int b, int r, int rus)
@@ -182,14 +191,14 @@ void RusiuotiBendras(Konteineris& studentai, int b, int r, int rus)
     }
 }
 
-void RusiuotiBendras(std::list<studentas>& studentai, int b, int r, int rus);
+void RusiuotiBendras(std::list<Studentas>& studentai, int b, int r, int rus);
 
 template <typename Konteineris>
 void PadalintiStudentusBendras3(Konteineris& studentai, Konteineris& vargsiukai, int b) //3 strategija vector greitesniam veikimui
 {
     vargsiukai.clear();
 
-    auto it = std::stable_partition(studentai.begin(), studentai.end(), [b](const auto& s) { return (b == 0) ? s.rez >= 5.0 : s.rez2 >= 5.0; });
+    auto it = std::stable_partition(studentai.begin(), studentai.end(), [b](const auto& s) { return (b == 0) ? s.rez() >= 5.0 : s.rez2() >= 5.0; });
 
     vargsiukai.assign(it, studentai.end());
     studentai.erase(it, studentai.end());
