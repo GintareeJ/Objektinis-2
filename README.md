@@ -1,44 +1,84 @@
-# V1.1
-#### Programos v1.1 versija:
+# V1.2
+
+## Programos atnaujinimas
+
+v1.2 versija yra išplėsta v1.1 versija, kurioje pagrindinis dėmesys skirtas:
+- „Rule of Five“ realizacijai
+- įvesties/išvesties operatorių perdengimui
+- pilnam metodų testavimui
+
+## „Rule of Five“ realizacija
+
+Klasėje `Studentas` realizuoti visi būtini metodai:
+
+- Konstruktorius
+- Kopijavimo konstruktorius (copy)
+- Perkėlimo konstruktorius (move)
+- Kopijavimo priskyrimo operatorius (copy assigment operator)
+- Perkėlimo priskyrimo operatorius (move assigment operator)
+- Destruktorius
+
+### Paskirtis
+
+Ši realizacija užtikrina:
+- saugų darbą su dinaminiu atminties valdymu
+- efektyvų objektų kopijavimą
+- greitesnį veikimą naudojant perkėlimą (move semantics)
+
+## Įvesties / išvesties operatoriai
+
+Klasėje `Studentas` perdengti operatoriai:
+- `operator>>` – duomenų įvedimui
+- `operator<<` – duomenų išvedimui
+
+### Įvesties būdai:
+- rankiniu būdu (per `cin`)
+- nuskaitymas iš failo
+- automatinis generavimas
+
+### Išvesties būdai:
+- į ekraną (`cout`)
+- į failą
+
+## Testavimas
+
+Sukurtas atskiras testavimo failas (`testai.cpp`), kuriame tikrinami visi klasės metodai.
+
+### Testuojami elementai:
+
+- visi konstruktoriai
+- kopijavimo operacijos
+- perkėlimo (move) operacijos
+- destruktorius
+- įvesties/išvesties operatoriai
+
+### Testavimo principas:
+
+- sukuriami objektai skirtingais būdais
+- tikrinama ar duomenys korektiškai kopijuojami
+- tikrinama ar move operacijos perkelia duomenis
+- tikrinamas išvedimo formatas
+
+
+## Programos funkcionalumas
+
+Programa:
 - nuskaito studentų duomenis iš failo
-- apskaičiuoja galutinį balą (vidurkis arba mediana)
-- surūšiuoja studentus
-- padalina į grupes (pagal balą)
-- leidžia testuoti skirtingus konteinerius (vector, list, deque)
-- matuoja veikimo laikus:
-  - nuskaitymo
-  - rūšiavimo
-  - skirstymo
-  - bendrą veikimo laiką
-
-#### Struct ir class versijų palyginimas:
-- naudotas konteineris: vector
-- naudota dalijimo strategija: 3 strategija
-- testuoti failai:
-  - 100000 įrašų
-  - 1000000 įrašų
-- naudoti optimizavimo flagai -O1, -O2, -O3
-
-#### Rezultatai
-Rezultatai struct kodo su -O1, -O2, -O3
-![Struct rezultatai](images2/struct1.png)
-![Struct rezultatai](images2/struct2.png)
-![Struct rezultatai](images2/struct3.png)
-
-Rezultatai class kodo su -O1, -O2, -O3
-![Class rezultatai](images2/class1.png)
-![Class rezultatai](images2/class2.png)
-![Class rezultatai](images2/class3.png)
-
-#### Rezultatų lentelė
-![Rezultatai](images2/table.png)
-
-#### Rezultatai be optimizavimo
-![Rezultatai](images2/beOPstruct.png)
-![Rezultatai](images2/beOPclass.png)
+- leidžia įvesti duomenis rankiniu būdu
+- gali generuoti atsitiktinius studentus
+- apskaičiuoja galutinį balą (vidurkis / mediana)
+- rūšiuoja studentus
+- skirsto į grupes pagal rezultatus
+- leidžia naudoti skirtingus konteinerius:
+  - `vector`
+  - `list`
+  - `deque`
+- matuoja veikimo laikus
 
 
-#### Išvados
-- struct maždaug 2s veikia greičiau už class, išskyrus -O3 optimiazvimą (skirtumo beveik nėra)
-- .exe failų dydžiai naudojant klases yra mažesni
-- optimizavimas sumažina .exe failų dydį ir padidina greitį
+## Išvados
+
+- „Rule of Five“ realizacija leidžia efektyviai valdyti atmintį
+- move operacijos sumažina nereikalingą kopijavimą
+- perdengti operatoriai supaprastina darbą su duomenimis
+- klasė tampa universalesnė ir tinkama tolimesniam naudojimui
