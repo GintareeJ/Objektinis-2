@@ -104,7 +104,7 @@ void NuskaitytiIsFailoBendras(Konteineris& studentai, const std::string& failoPa
             s.addPazymys(p);
         }
 
-        studentai.push_back(s);
+        studentai.push_back(std::move(s));
     }
 }
 
@@ -116,11 +116,11 @@ void PadalintiStudentusBendras1(const Konteineris& studentai, Konteineris& vargs
 
     for (const auto& s : studentai) {
         if (b == 0) {
-            if (s.rez() < 5.0) vargsiukai.push_back(s);
+            if (s.rez() < 5.0) vargsiukai.push_back(std::move(s));
             else kietiakai.push_back(s);
         } else {
-            if (s.rez2() < 5.0) vargsiukai.push_back(s);
-            else kietiakai.push_back(s);
+            if (s.rez2() < 5.0) vargsiukai.push_back(std::move(s));
+            else kietiakai.push_back(std::move(s));
         }
     }
 }
@@ -134,7 +134,7 @@ void PadalintiStudentusBendras2(Konteineris& studentai, Konteineris& vargsiukai,
         if (b == 0) {
             if (studentai[i].rez() < 5.0)
             {
-                vargsiukai.push_back(studentai[i]);
+                vargsiukai.push_back(std::move(studentai[i]));
                 studentai.erase(studentai.begin() + i);
             }
             else
@@ -145,7 +145,7 @@ void PadalintiStudentusBendras2(Konteineris& studentai, Konteineris& vargsiukai,
         else {
             if (studentai[i].rez2() < 5.0)
             {
-                vargsiukai.push_back(studentai[i]);
+                vargsiukai.push_back(std::move(studentai[i]));
                 studentai.erase(studentai.begin() + i);
             }
             else
@@ -215,6 +215,7 @@ void TestuotiKonteineri(const std::string& konteinerioPav, const std::string& fa
     double nuskaitymas=0;
     double rusiavimas=0;
     double skirstymas=0;
+    double visas=0;
 
     if(std::ifstream(failas)) 
     {
@@ -223,6 +224,7 @@ void TestuotiKonteineri(const std::string& konteinerioPav, const std::string& fa
     else {
     GeneruotiStudentuFaila(failas, studentuKiekis, ndKiekis);
     }
+    auto start =  high_resolution_clock::now();
     for(int i=0; i<testuKartai; i++)
 {
     //nuskaitymas
@@ -250,6 +252,9 @@ void TestuotiKonteineri(const std::string& konteinerioPav, const std::string& fa
     auto endD = high_resolution_clock::now();
     skirstymas+=duration<double>(endD - startD).count();
 }
+    auto end = high_resolution_clock::now();
+    visas=duration<double>(end - start).count();
+
     cout << "Konteineris: " << konteinerioPav << "\n";
     cout << "Failas: " << failas << "\n";
     cout << "Nuskaitymas: " << nuskaitymas/testuKartai << " s\n";
@@ -258,6 +263,7 @@ void TestuotiKonteineri(const std::string& konteinerioPav, const std::string& fa
     if(strategija==2) cout<<"2 STRATEGIJA: \n";
     if(strategija==3) cout<<"3 STRATEGIJA: \n";
     cout << "Skirstymas: " << skirstymas/testuKartai << " s\n";
+    cout << "Visas veikimo laikas: "<< visas<< " s\n"<<std::endl;
     cout << "-----------------------------------\n";
     
 }
