@@ -43,6 +43,7 @@ Klasėje `Studentas` perdengti operatoriai:
 ## Testavimas
 
 Sukurtas atskiras testavimo failas (`testai.cpp`), kuriame tikrinami visi klasės metodai.
+![Testas](test.png)
 
 ### Testuojami elementai:
 
