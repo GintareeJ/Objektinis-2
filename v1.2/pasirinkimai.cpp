@@ -142,7 +142,7 @@ void RandPaz(std::vector<Studentas>& studentai, Studentas& s, int& kiek)
         s.addPazymys(rand() % 10 + 1);
     }
 
-    studentai.push_back(s);
+    studentai.push_back(std::move(s));
 }
 
 int kinta()
@@ -262,7 +262,7 @@ void PirmasP(std::vector<Studentas>& studentai, int& b)
             }
         }
 
-        studentai.push_back(s);
+        studentai.push_back(std::move(s));
     }
 
     b = kinta();
@@ -502,7 +502,7 @@ void PadalintiStudentusBendras2(std::list<Studentas>& studentai, std::list<Stude
         if (b == 0) {
             if (it->rez() < 5.0) 
             {
-                vargsiukai.push_back(*it);
+                vargsiukai.push_back(std::move(*it));
                 it=studentai.erase(it);
             }
          else
