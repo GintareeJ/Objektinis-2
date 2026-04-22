@@ -19,7 +19,7 @@ public:
     Studentas(const std::string& v, const std::string& p, const std::vector<int>& pazymiai)
         : Zmogus(v, p), paz(pazymiai) {}
 //default konstruktorius
-    ~Studentas() {}
+    ~Studentas() override {}
 //copy k.
     Studentas(const Studentas& other)
         : Zmogus(other.vard, other.pavard),
@@ -68,50 +68,46 @@ public:
     void setRez(double r) { rez_ = r; }
     void setRez2(double r) { rez2_ = r; }
 
+ friend std::ostream& operator<<(std::ostream& os, const Studentas& s) {
+    os << std::left << std::setw(15) << s.vard 
+       << std::left << std::setw(15) << s.pavard;
+
+    for (auto p : s.paz) {
+        os << p << " ";
+    }
+    
+    if (s.rez_ > 0) {
+        os << std::fixed << std::setprecision(2) << " | Vid: " << s.rez_;
+    }
+    if (s.rez2_ > 0) {
+        os << std::fixed << std::setprecision(2) << " | Med: " << s.rez2_;
+    }
+    
+    return os;
+}
+
+friend std::istream& operator>>(std::istream& is, Studentas& s)
+{
+    std::string v, p;
+
+    is >> v >> p;
+
+    s.setVardas(v);
+    s.setPavarde(p);
+
+    int paz;
+    s.clearPazymiai();
+
+    while (is >> paz) {
+        s.addPazymys(paz);
+
+        if (is.peek() == '\n')
+            break;
+    }
+
+    return is;
+}
+
 };
-
-std::istream& operator>>(std::istream& is, Studentas& s)
-{
-    std::string v, p;
-
-    is >> v >> p;
-
-    s.setVardas(v);
-    s.setPavarde(p);
-
-    int paz;
-    s.clearPazymiai();
-
-    while (is >> paz) {
-        s.addPazymys(paz);
-
-        if (is.peek() == '\n')
-            break;
-    }
-
-    return is;
-}
-
-std::istream& operator>>(std::istream& is, Studentas& s)
-{
-    std::string v, p;
-
-    is >> v >> p;
-
-    s.setVardas(v);
-    s.setPavarde(p);
-
-    int paz;
-    s.clearPazymiai();
-
-    while (is >> paz) {
-        s.addPazymys(paz);
-
-        if (is.peek() == '\n')
-            break;
-    }
-
-    return is;
-}
 
 #endif
