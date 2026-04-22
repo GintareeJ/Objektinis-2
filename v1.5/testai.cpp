@@ -1,6 +1,7 @@
 #include <iostream>
 #include <sstream>
 #include "studentas.h"
+#include "zmogus.h"
 
 using std::cout;
 using std::endl;
@@ -66,7 +67,7 @@ void TestIsvestis() {
     s.addPazymys(8);
     s.setRez(9.0);
     
-    cout<<"Išvedame studentą: "<<s<< "Išvesties operatorius veikia"<<"\n";
+    cout<<"Isvedame studenta: "<<s<<" Isvesties operatorius veikia"<<"\n";
 }
 
 void TestIvestis() {
