@@ -1,5 +1,6 @@
 #include <iostream>
 #include <sstream>
+#include <cassert>
 #include "studentas.h"
 
 using std::cout;
@@ -7,86 +8,144 @@ using std::endl;
 
 void TestDefaultKonstruktorius() {
     Studentas s;
-    cout<<"Default konstruktorius iskviestas\n";
+
+    assert(s.vardas().empty());
+    assert(s.pavarde().empty());
+    assert(s.pazymiai().empty());
+    assert(s.rez() == 0.0);
+    assert(s.rez2() == 0.0);
+
+    cout << "Default OK\n";
 }
 
 void TestCopyKonstruktorius() {
     Studentas a;
+
     a.setVardas("Jonas");
+    a.setPavarde("Jonaitis");
     a.addPazymys(10);
+    a.addPazymys(9);
+    a.setRez(9.5);
+    a.setRez2(9.0);
 
     Studentas b = a;
 
-    cout<<"Copy konstruktorius: "<<b.vardas()<<" "<<b.pazymiai().size()<<endl;
+    assert(b.vardas() == a.vardas());
+    assert(b.pavarde() == a.pavarde());
+    assert(b.pazymiai() == a.pazymiai());
+    assert(b.rez() == a.rez());
+    assert(b.rez2() == a.rez2());
+
+    cout << "Copy constructor OK\n";
 }
 
 void TestMoveKonstruktorius() {
     Studentas a;
+
     a.setVardas("Petras");
+    a.setPavarde("Petraitis");
+    a.addPazymys(8);
     a.addPazymys(9);
+    a.setRez(8.5);
+    a.setRez2(8.0);
 
     Studentas b = std::move(a);
 
-    cout<<"Move konstruktorius: "<<b.vardas()<<" "<<b.pazymiai().size()<<endl;
+    // destination
+    assert(b.vardas() == "Petras");
+    assert(b.pavarde() == "Petraitis");
+    assert(b.pazymiai().size() == 2);
+    assert(b.rez() == 8.5);
+    assert(b.rez2() == 8.0);
+
+    // source po move
+    assert(a.vardas().empty());
+    assert(a.pavarde().empty());
+    assert(a.pazymiai().empty());
+    assert(a.rez() == 0.0);
+    assert(a.rez2() == 0.0);
+
+    cout << "Move constructor OK\n";
 }
 
 void TestCopyAssignment() {
     Studentas a;
-    a.setVardas("Jonas");
+
+    a.setVardas("Mantas");
+    a.setPavarde("Mantaitis");
+    a.addPazymys(7);
+    a.setRez(7.0);
+    a.setRez2(7.0);
 
     Studentas b;
     b = a;
 
-    cout<<"Copy assignment: "<<b.vardas()<<endl;
+    assert(b.vardas() == a.vardas());
+    assert(b.pavarde() == a.pavarde());
+    assert(b.pazymiai() == a.pazymiai());
+    assert(b.rez() == a.rez());
+    assert(b.rez2() == a.rez2());
+
+    cout << "Copy assignment OK\n";
 }
 
 void TestMoveAssignment() {
     Studentas a;
-    a.setVardas("Mantas");
+
+    a.setVardas("Tomas");
+    a.setPavarde("Tomaitis");
+    a.addPazymys(10);
+    a.addPazymys(8);
+    a.setRez(9.0);
+    a.setRez2(8.0);
 
     Studentas b;
     b = std::move(a);
 
-    cout<<"Move assignment: "<<b.vardas()<<endl;
-}
+    // destination
+    assert(b.vardas() == "Tomas");
+    assert(b.pavarde() == "Tomaitis");
+    assert(b.pazymiai().size() == 2);
+    assert(b.rez() == 9.0);
+    assert(b.rez2() == 8.0);
 
-void TestDestruktorius() {
-    Studentas a;
-    a.setVardas("Test");
+    // source po move
+    assert(a.vardas().empty());
+    assert(a.pavarde().empty());
+    assert(a.pazymiai().empty());
+    assert(a.rez() == 0.0);
+    assert(a.rez2() == 0.0);
 
-    cout<<"Destruktorius iskviestas\n";
-}
-
-void TestIsvestis() {
-    Studentas s;
-    s.setVardas("Vardenis");
-    s.setPavarde("Pavardenis");
-    s.addPazymys(10);
-    s.addPazymys(9);
-    s.addPazymys(8);
-    s.setRez(9.0);
-    
-    cout<<"Išvedame studentą: "<<s<< "Išvesties operatorius veikia"<<"\n";
+    cout << "Move assignment OK\n";
 }
 
 void TestIvestis() {
-    std::istringstream iss("Vardenis2 Pavardenis2 8 7 6 10");
-    
+    std::istringstream iss(
+        "Vardenis Pavardenis 8 9 10"
+    );
+
     Studentas s;
-    iss >> s; 
-    
-    cout<<"Nuskaitytasis studentas: "<<s<<"Ivesties operatorius veikia\n";
+    iss >> s;
+
+    assert(s.vardas() == "Vardenis");
+    assert(s.pavarde() == "Pavardenis");
+    assert(s.pazymiai().size() == 3);
+    assert(s.pazymiai()[0] == 8);
+    assert(s.pazymiai()[1] == 9);
+    assert(s.pazymiai()[2] == 10);
+
+    cout << "Input operator OK\n";
 }
 
 int main() {
-    cout<<"TESTAI\n";
+    cout << "TESTAI\n\n";
 
     TestDefaultKonstruktorius();
     TestCopyKonstruktorius();
     TestMoveKonstruktorius();
     TestCopyAssignment();
     TestMoveAssignment();
-    TestDestruktorius();
-    TestIsvestis();
     TestIvestis();
+
+    cout << "\nVisi testai praejo.\n";
 }
