@@ -18,25 +18,34 @@ public:
 //konstruktorius
     Studentas(const std::string& v, const std::string& p, const std::vector<int>& pazymiai)
         : Zmogus(v, p), paz(pazymiai) {}
-//default konstruktorius
-    ~Studentas() override {}
+
+//destruktorius
+~Studentas() override { 
+        vard.clear();
+        pavard.clear();
+        paz.clear();
+        rez_=0.0;
+        rez2_=0.0; 
+    }
 //copy k.
     Studentas(const Studentas& other)
-        : Zmogus(other.vard, other.pavard),
+        : Zmogus(other),
           paz(other.paz),
           rez_(other.rez_),
           rez2_(other.rez2_) {}
 //move k.
     Studentas(Studentas&& other) noexcept
-        : Zmogus(std::move(other.vard), std::move(other.pavard)),
+        : Zmogus(std::move(other)),  
           paz(std::move(other.paz)),
           rez_(other.rez_),
-          rez2_(other.rez2_) {}
+          rez2_(other.rez2_) {
+        other.rez_ = 0.0;
+        other.rez2_ = 0.0;
+          }
 //copy assigment k.
     Studentas& operator=(const Studentas& other) {
         if (this != &other) {
-            vard = other.vard;
-            pavard = other.pavard;
+            Zmogus::operator=(other);
             paz = other.paz;
             rez_ = other.rez_;
             rez2_ = other.rez2_;
@@ -46,12 +55,13 @@ public:
 //move assigment k.
     Studentas& operator=(Studentas&& other) noexcept {
         if (this != &other) {
-            vard = std::move(other.vard);
-            pavard = std::move(other.pavard);
+            Zmogus::operator=(std::move(other));
             paz = std::move(other.paz);
             rez_ = other.rez_;
             rez2_ = other.rez2_;
         }
+        other.rez_ = 0.0;
+        other.rez2_ = 0.0;
         return *this;
     }
 //padaro studentas isvestine klase
